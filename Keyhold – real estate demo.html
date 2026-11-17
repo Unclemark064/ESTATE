@@ -1,767 +1,3086 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Keyhold – homes you can visit this week</title>
-<meta name="description" content="Browse homes across Nigeria. Book an inspection in minutes. No fees, no commission.">
-<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@100..150,100..900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-/* =========================================================
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Keyhold – homes you can visit this week</title>
+    <meta
+      name="description"
+      content="Browse homes across Nigeria. Book an inspection in minutes. No fees, no commission."
+    />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@100..150,100..900&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* =========================================================
    TOKENS — Brand: Greene Green, Sage Green, Warm Ivory, Charcoal
    ========================================================= */
-:root{
-  --green:#0B3D2E;--green-dark:#072018;--green-mid:#144D3B;
-  --sage:#A7C957;--sage-h:#B8D76A;--sage-dim:rgba(167,201,87,.18);
-  --ivory:#F8F7F1;--ivory-card:#FFFFFF;--ivory-subtle:#F0EFE6;
-  --charcoal:#1F1F1F;--mute:#616961;--line:#E3E0D3;
-  --ok:#2D7A4D;--bad:#BA3C2A;
+      :root {
+        --green: #0b3d2e;
+        --green-dark: #072018;
+        --green-mid: #144d3b;
+        --sage: #a7c957;
+        --sage-h: #b8d76a;
+        --sage-dim: rgba(167, 201, 87, 0.18);
+        --ivory: #f8f7f1;
+        --ivory-card: #ffffff;
+        --ivory-subtle: #f0efe6;
+        --charcoal: #1f1f1f;
+        --mute: #616961;
+        --line: #e3e0d3;
+        --ok: #2d7a4d;
+        --bad: #ba3c2a;
 
-  /* Semantic tokens mapped to brand palette */
-  --cyan:var(--sage);
-  --cyan-h:var(--sage-h);
-  --cyan-dim:var(--sage-dim);
-  --cream:var(--ivory-subtle);
-  --navy:var(--green);
-  --bg:var(--ivory);
-  --card:var(--ivory-card);
-  --ink:var(--charcoal);
+        /* Semantic tokens mapped to brand palette */
+        --cyan: var(--sage);
+        --cyan-h: var(--sage-h);
+        --cyan-dim: var(--sage-dim);
+        --cream: var(--ivory-subtle);
+        --navy: var(--green);
+        --bg: var(--ivory);
+        --card: var(--ivory-card);
+        --ink: var(--charcoal);
 
-  --sh-sm:0 2px 10px -4px rgba(11,61,46,.10);
-  --sh-md:0 8px 28px -8px rgba(11,61,46,.16);
-  --sh-lg:0 24px 56px -12px rgba(11,61,46,.22);
-  --wide:"Anybody","Arial Black",Arial,sans-serif;
-  --text:"Inter",system-ui,Arial,sans-serif;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px)
-}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#121714;--card:#1A231E;--ink:#F8F7F1;--mute:#9EA89E;--line:#2B3931;--cream:#222E27;
-  --sh-sm:0 2px 10px -4px rgba(0,0,0,.35);
-  --sh-md:0 8px 28px -8px rgba(0,0,0,.45);
-  --sh-lg:0 24px 56px -12px rgba(0,0,0,.55)
-}}
-:root[data-theme="dark"]{--bg:#121714;--card:#1A231E;--ink:#F8F7F1;--mute:#9EA89E;--line:#2B3931;--cream:#222E27}
+        --sh-sm: 0 2px 10px -4px rgba(11, 61, 46, 0.1);
+        --sh-md: 0 8px 28px -8px rgba(11, 61, 46, 0.16);
+        --sh-lg: 0 24px 56px -12px rgba(11, 61, 46, 0.22);
+        --wide: "Anybody", "Arial Black", Arial, sans-serif;
+        --text: "Inter", system-ui, Arial, sans-serif;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #121714;
+          --card: #1a231e;
+          --ink: #f8f7f1;
+          --mute: #9ea89e;
+          --line: #2b3931;
+          --cream: #222e27;
+          --sh-sm: 0 2px 10px -4px rgba(0, 0, 0, 0.35);
+          --sh-md: 0 8px 28px -8px rgba(0, 0, 0, 0.45);
+          --sh-lg: 0 24px 56px -12px rgba(0, 0, 0, 0.55);
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #121714;
+        --card: #1a231e;
+        --ink: #f8f7f1;
+        --mute: #9ea89e;
+        --line: #2b3931;
+        --cream: #222e27;
+      }
 
-/* =========================================================
+      /* =========================================================
    BASE
    ========================================================= */
-html{scroll-padding-top:76px;scroll-behavior:smooth}
-*,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--text)}
-button,input,select,textarea{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--sage);outline-offset:2px}
-img{max-width:100%;height:auto;display:block}
-a{color:inherit;text-decoration:none}
+      html {
+        scroll-padding-top: 76px;
+        scroll-behavior: smooth;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font: 400 16px/1.6 var(--text);
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+      :focus-visible {
+        outline: 3px solid var(--sage);
+        outline-offset: 2px;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
 
-/* =========================================================
+      /* =========================================================
    NAV
    ========================================================= */
-nav.top{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:0 clamp(18px,4vw,56px);height:72px;color:#fff;
-  transition:background .3s,box-shadow .3s
-}
-nav.top.scrolled{background:rgba(11,61,46,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 2px 24px -4px rgba(7,32,24,.35)}
-.logo{display:inline-flex;align-items:center;gap:10px;font:800 24px var(--wide);font-stretch:140%;letter-spacing:.02em;color:#fff;text-decoration:none}
-.logo-mark{display:inline-grid;place-items:center;width:34px;height:34px;flex-shrink:0;border-radius:10px;overflow:hidden}
-.logo-mark svg,.logo-mark img{width:100%;height:100%;display:block;object-fit:contain}
-.logo-text{display:inline-block;line-height:1}
-.logo-text b{color:var(--sage)}
-.links{display:flex;gap:24px;align-items:center}
-.links a,.links button{font:600 13px var(--wide);font-stretch:125%;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:none;border:0;cursor:pointer;text-decoration:none;padding:6px 0;transition:color .2s}
-.links a:hover,.links button:hover{color:var(--sage)}
-.bag{display:inline-flex;align-items:center;gap:7px}
-.cnt{display:inline-grid;place-items:center;min-width:22px;height:22px;border-radius:99px;background:var(--sage);color:var(--green);font:700 12px var(--text)}
-.burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:0;cursor:pointer;padding:8px;z-index:101;flex-shrink:0}
-.burger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .3s}
-.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.burger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
-.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+      nav.top {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 0 clamp(18px, 4vw, 56px);
+        height: 72px;
+        color: #fff;
+        transition:
+          background 0.3s,
+          box-shadow 0.3s;
+      }
+      nav.top.scrolled {
+        background: rgba(11, 61, 46, 0.95);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 2px 24px -4px rgba(7, 32, 24, 0.35);
+      }
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font: 800 24px var(--wide);
+        font-stretch: 140%;
+        letter-spacing: 0.02em;
+        color: #fff;
+        text-decoration: none;
+      }
+      .logo-mark {
+        display: inline-grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .logo-mark svg,
+      .logo-mark img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+      }
+      .logo-text {
+        display: inline-block;
+        line-height: 1;
+      }
+      .logo-text b {
+        color: var(--sage);
+      }
+      .links {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+      }
+      .links a,
+      .links button {
+        font: 600 13px var(--wide);
+        font-stretch: 125%;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #fff;
+        background: none;
+        border: 0;
+        cursor: pointer;
+        text-decoration: none;
+        padding: 6px 0;
+        transition: color 0.2s;
+      }
+      .links a:hover,
+      .links button:hover {
+        color: var(--sage);
+      }
+      .bag {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .cnt {
+        display: inline-grid;
+        place-items: center;
+        min-width: 22px;
+        height: 22px;
+        border-radius: 99px;
+        background: var(--sage);
+        color: var(--green);
+        font: 700 12px var(--text);
+      }
+      .burger {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        background: none;
+        border: 0;
+        cursor: pointer;
+        padding: 8px;
+        z-index: 101;
+        flex-shrink: 0;
+      }
+      .burger span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #fff;
+        border-radius: 2px;
+        transition:
+          transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.3s;
+      }
+      .burger.open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .burger.open span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      .burger.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
 
-/* =========================================================
+      /* =========================================================
    MOBILE NAV
    ========================================================= */
-.mob-nav{
-  position:fixed;inset:0;background:rgba(11,61,46,.98);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;
-  transform:translateY(-100%);opacity:0;transition:transform .36s cubic-bezier(.4,0,.2,1),opacity .36s;pointer-events:none
-}
-.mob-nav.open{transform:none;opacity:1;pointer-events:all}
-.mob-nav a,.mob-nav>button{font:700 22px var(--wide);font-stretch:130%;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:none;border:0;cursor:pointer;text-decoration:none;transition:color .2s;padding:4px 0}
-.mob-nav a:hover,.mob-nav>button:hover{color:var(--sage)}
-.mob-div{width:36px;height:1px;background:rgba(255,255,255,.18)}
-.mob-cnt{min-width:22px;height:22px;border-radius:99px;background:var(--sage);color:var(--green);font:700 12px var(--text);display:inline-grid;place-items:center;margin-left:6px;vertical-align:middle}
+      .mob-nav {
+        position: fixed;
+        inset: 0;
+        background: rgba(11, 61, 46, 0.98);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        z-index: 99;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition:
+          transform 0.36s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.36s;
+        pointer-events: none;
+      }
+      .mob-nav.open {
+        transform: none;
+        opacity: 1;
+        pointer-events: all;
+      }
+      .mob-nav a,
+      .mob-nav > button {
+        font: 700 22px var(--wide);
+        font-stretch: 130%;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #fff;
+        background: none;
+        border: 0;
+        cursor: pointer;
+        text-decoration: none;
+        transition: color 0.2s;
+        padding: 4px 0;
+      }
+      .mob-nav a:hover,
+      .mob-nav > button:hover {
+        color: var(--sage);
+      }
+      .mob-div {
+        width: 36px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.18);
+      }
+      .mob-cnt {
+        min-width: 22px;
+        height: 22px;
+        border-radius: 99px;
+        background: var(--sage);
+        color: var(--green);
+        font: 700 12px var(--text);
+        display: inline-grid;
+        place-items: center;
+        margin-left: 6px;
+        vertical-align: middle;
+      }
 
-/* =========================================================
+      /* =========================================================
    HERO
    ========================================================= */
-.hero{
-  position:relative;min-height:100svh;color:#fff;overflow:hidden;
-  display:flex;flex-direction:column;padding-top:72px;
-  background:linear-gradient(135deg,#072018 0%,#0B3D2E 42%,#144D3B 80%,#1E664F 100%);
-}
-.ridge{position:absolute;left:0;right:0;bottom:0;width:100%;height:34%;pointer-events:none}
-.snow{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(2px 2px at 20% 30%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 60% 70%,#fff 50%,transparent 51%),radial-gradient(3px 3px at 80% 20%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 40% 85%,#fff 50%,transparent 51%);background-size:340px 300px;opacity:.7;animation:drift 22s linear infinite}
-@keyframes drift{to{background-position:-170px 300px}}
-@media(prefers-reduced-motion:reduce){.snow{animation:none}}
-.heroBody{position:relative;z-index:2;flex:1;display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center;padding:clamp(28px,5vh,56px) clamp(18px,4vw,56px) clamp(60px,8vw,100px)}
-.eyebrow{font:600 13px var(--wide);font-stretch:125%;letter-spacing:.14em;margin:0 0 14px;color:rgba(255,255,255,.88)}
-#city-cycle{color:var(--sage);display:inline-block;transition:opacity .28s,transform .28s;min-width:4ch}
-h1{margin:0;font:200 clamp(44px,8vw,108px)/.96 var(--wide);font-stretch:145%;letter-spacing:-.01em}
-h1 span{display:block}
-h1 .out{color:transparent;-webkit-text-stroke:2px var(--sage);font-weight:300}
-.lede{max-width:48ch;margin:20px 0 0;font-size:17px;line-height:1.65;color:#f0f7fb}
-.hero-search{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 0;max-width:520px}
-.hero-search input{flex:1;min-width:160px;background:rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.35);border-radius:99px;padding:13px 20px;color:#fff;font-size:15px;transition:background .2s,border-color .2s}
-.hero-search input::placeholder{color:rgba(255,255,255,.6)}
-.hero-search input:focus{background:rgba(255,255,255,.26);border-color:var(--sage);outline:none}
-.hero-search select{background:rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.35);border-radius:99px;padding:13px 20px;color:#fff;cursor:pointer;transition:background .2s,border-color .2s}
-.hero-search select option{background:var(--green);color:#fff}
-.hero-search select:focus{outline:none;border-color:var(--sage)}
-.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-.tiles{display:grid;grid-template-columns:1.15fr 1fr;gap:16px}
-.tile{border-radius:26px;padding:22px;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s}
-.tile:hover{transform:translateY(-2px)}
-.t-cyan{background:var(--sage);color:#0B3D2E}
-.t-cyan h3{margin:0;font:800 34px/1 var(--wide);font-stretch:120%}
-.t-plain{color:#fff;justify-content:flex-end}.t-plain h3{margin:0;font:300 40px/1 var(--wide);font-stretch:140%}
-.t-glass{background:rgba(167,201,87,.14);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(248,247,241,.4);color:#fff;align-items:center;justify-content:center;text-align:center;gap:8px;cursor:pointer}
-.t-cream{background:var(--cream);color:var(--ink)}
-.t-cream h3{margin:0;font:700 20px/1.1 var(--wide);font-stretch:120%}
-.small{font:500 12px var(--text);opacity:.85}
-.arrow{font-size:34px;line-height:1}
-.mini{height:78px;border-radius:14px;overflow:hidden;margin-bottom:10px}
-.mini svg,.mini img{width:100%;height:100%;object-fit:cover;display:block}
+      .hero {
+        position: relative;
+        min-height: 100svh;
+        color: #fff;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding-top: 72px;
+        background: linear-gradient(
+          135deg,
+          #072018 0%,
+          #0b3d2e 42%,
+          #144d3b 80%,
+          #1e664f 100%
+        );
+      }
+      .ridge {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 34%;
+        pointer-events: none;
+      }
+      .snow {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          radial-gradient(2px 2px at 20% 30%, #fff 50%, transparent 51%),
+          radial-gradient(2px 2px at 60% 70%, #fff 50%, transparent 51%),
+          radial-gradient(3px 3px at 80% 20%, #fff 50%, transparent 51%),
+          radial-gradient(2px 2px at 40% 85%, #fff 50%, transparent 51%);
+        background-size: 340px 300px;
+        opacity: 0.7;
+        animation: drift 22s linear infinite;
+      }
+      @keyframes drift {
+        to {
+          background-position: -170px 300px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .snow {
+          animation: none;
+        }
+      }
+      .heroBody {
+        position: relative;
+        z-index: 2;
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 32px;
+        align-items: center;
+        padding: clamp(28px, 5vh, 56px) clamp(18px, 4vw, 56px)
+          clamp(60px, 8vw, 100px);
+      }
+      .eyebrow {
+        font: 600 13px var(--wide);
+        font-stretch: 125%;
+        letter-spacing: 0.14em;
+        margin: 0 0 14px;
+        color: rgba(255, 255, 255, 0.88);
+      }
+      #city-cycle {
+        color: var(--sage);
+        display: inline-block;
+        transition:
+          opacity 0.28s,
+          transform 0.28s;
+        min-width: 4ch;
+      }
+      h1 {
+        margin: 0;
+        font: 200 clamp(44px, 8vw, 108px)/0.96 var(--wide);
+        font-stretch: 145%;
+        letter-spacing: -0.01em;
+      }
+      h1 span {
+        display: block;
+      }
+      h1 .out {
+        color: transparent;
+        -webkit-text-stroke: 2px var(--sage);
+        font-weight: 300;
+      }
+      .lede {
+        max-width: 48ch;
+        margin: 20px 0 0;
+        font-size: 17px;
+        line-height: 1.65;
+        color: #f0f7fb;
+      }
+      .hero-search {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 24px 0 0;
+        max-width: 520px;
+      }
+      .hero-search input {
+        flex: 1;
+        min-width: 160px;
+        background: rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 99px;
+        padding: 13px 20px;
+        color: #fff;
+        font-size: 15px;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .hero-search input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .hero-search input:focus {
+        background: rgba(255, 255, 255, 0.26);
+        border-color: var(--sage);
+        outline: none;
+      }
+      .hero-search select {
+        background: rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 99px;
+        padding: 13px 20px;
+        color: #fff;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .hero-search select option {
+        background: var(--green);
+        color: #fff;
+      }
+      .hero-search select:focus {
+        outline: none;
+        border-color: var(--sage);
+      }
+      .cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 22px;
+      }
+      .tiles {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: 16px;
+      }
+      .tile {
+        border-radius: 26px;
+        padding: 22px;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.2s;
+      }
+      .tile:hover {
+        transform: translateY(-2px);
+      }
+      .t-cyan {
+        background: var(--sage);
+        color: #0b3d2e;
+      }
+      .t-cyan h3 {
+        margin: 0;
+        font: 800 34px/1 var(--wide);
+        font-stretch: 120%;
+      }
+      .t-plain {
+        color: #fff;
+        justify-content: flex-end;
+      }
+      .t-plain h3 {
+        margin: 0;
+        font: 300 40px/1 var(--wide);
+        font-stretch: 140%;
+      }
+      .t-glass {
+        background: rgba(167, 201, 87, 0.14);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(248, 247, 241, 0.4);
+        color: #fff;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+      .t-cream {
+        background: var(--cream);
+        color: var(--ink);
+      }
+      .t-cream h3 {
+        margin: 0;
+        font: 700 20px/1.1 var(--wide);
+        font-stretch: 120%;
+      }
+      .small {
+        font: 500 12px var(--text);
+        opacity: 0.85;
+      }
+      .arrow {
+        font-size: 34px;
+        line-height: 1;
+      }
+      .mini {
+        height: 78px;
+        border-radius: 14px;
+        overflow: hidden;
+        margin-bottom: 10px;
+      }
+      .mini svg,
+      .mini img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
 
-/* =========================================================
+      /* =========================================================
    ENTRANCE ANIMATIONS
    ========================================================= */
-@media(prefers-reduced-motion:no-preference){
-  .in{opacity:0;transform:translateY(14px);animation:up .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--d,0)*1ms)}
-  h1 span{clip-path:inset(0 0 100% 0);animation:type .8s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--d,0)*1ms)}
-  @keyframes up{to{opacity:1;transform:none}}
-  @keyframes type{to{clip-path:inset(0 0 -20% 0)}}
-}
+      @media (prefers-reduced-motion: no-preference) {
+        .in {
+          opacity: 0;
+          transform: translateY(14px);
+          animation: up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+          animation-delay: calc(var(--d, 0) * 1ms);
+        }
+        h1 span {
+          clip-path: inset(0 0 100% 0);
+          animation: type 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+          animation-delay: calc(var(--d, 0) * 1ms);
+        }
+        @keyframes up {
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+        @keyframes type {
+          to {
+            clip-path: inset(0 0 -20% 0);
+          }
+        }
+      }
 
-/* =========================================================
+      /* =========================================================
    SCROLL REVEAL
    ========================================================= */
-@media(prefers-reduced-motion:no-preference){
-  .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
-  .reveal.vis{opacity:1;transform:none}
-  .reveal.d1{transition-delay:.12s}
-  .reveal.d2{transition-delay:.24s}
-  .reveal.d3{transition-delay:.36s}
-}
+      @media (prefers-reduced-motion: no-preference) {
+        .reveal {
+          opacity: 0;
+          transform: translateY(22px);
+          transition:
+            opacity 0.65s ease,
+            transform 0.65s ease;
+        }
+        .reveal.vis {
+          opacity: 1;
+          transform: none;
+        }
+        .reveal.d1 {
+          transition-delay: 0.12s;
+        }
+        .reveal.d2 {
+          transition-delay: 0.24s;
+        }
+        .reveal.d3 {
+          transition-delay: 0.36s;
+        }
+      }
 
-/* =========================================================
+      /* =========================================================
    STATS STRIP
    ========================================================= */
-.stats-strip{background:var(--navy);padding:20px clamp(18px,4vw,56px)}
-.stats-inner{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-around;gap:8px}
-.stat{text-align:center;padding:10px 20px}
-.stat-n{font:700 clamp(24px,3.5vw,38px)/1 var(--wide);font-stretch:130%;color:var(--cyan)}
-.stat-l{font-size:13px;color:rgba(255,255,255,.65);margin-top:4px;letter-spacing:.03em}
+      .stats-strip {
+        background: var(--navy);
+        padding: 20px clamp(18px, 4vw, 56px);
+      }
+      .stats-inner {
+        max-width: 1240px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 8px;
+      }
+      .stat {
+        text-align: center;
+        padding: 10px 20px;
+      }
+      .stat-n {
+        font: 700 clamp(24px, 3.5vw, 38px)/1 var(--wide);
+        font-stretch: 130%;
+        color: var(--cyan);
+      }
+      .stat-l {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.65);
+        margin-top: 4px;
+        letter-spacing: 0.03em;
+      }
 
-/* =========================================================
+      /* =========================================================
    MAIN
    ========================================================= */
-main{max-width:1240px;margin:0 auto;padding:72px clamp(18px,4vw,40px) 80px}
-.sechead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:28px}
-h2{margin:0;font:300 clamp(28px,4.5vw,50px)/1.05 var(--wide);font-stretch:140%}
-.seclink{font:600 13px var(--wide);font-stretch:125%;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);transition:color .2s}
-.seclink:hover{color:var(--cyan)}
-.section-gap{margin-top:80px}
+      main {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 72px clamp(18px, 4vw, 40px) 80px;
+      }
+      .sechead {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 28px;
+      }
+      h2 {
+        margin: 0;
+        font: 300 clamp(28px, 4.5vw, 50px)/1.05 var(--wide);
+        font-stretch: 140%;
+      }
+      .seclink {
+        font: 600 13px var(--wide);
+        font-stretch: 125%;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--mute);
+        transition: color 0.2s;
+      }
+      .seclink:hover {
+        color: var(--cyan);
+      }
+      .section-gap {
+        margin-top: 80px;
+      }
 
-/* =========================================================
+      /* =========================================================
    FILTERS
    ========================================================= */
-.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:28px}
-.chip{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:9px 18px;cursor:pointer;font-weight:500;transition:background .2s,border-color .2s,color .2s}
-.chip:hover{border-color:var(--sage)}
-.chip[aria-pressed="true"]{background:var(--charcoal);color:var(--ivory);border-color:var(--charcoal)}
-.search{flex:1;min-width:200px;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:10px 18px;transition:border-color .2s}
-.search:focus{border-color:var(--sage);outline:none}
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 28px;
+      }
+      .chip {
+        border: 1px solid var(--line);
+        background: var(--card);
+        border-radius: 99px;
+        padding: 9px 18px;
+        cursor: pointer;
+        font-weight: 500;
+        transition:
+          background 0.2s,
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .chip:hover {
+        border-color: var(--sage);
+      }
+      .chip[aria-pressed="true"] {
+        background: var(--charcoal);
+        color: var(--ivory);
+        border-color: var(--charcoal);
+      }
+      .search {
+        flex: 1;
+        min-width: 200px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        border-radius: 99px;
+        padding: 10px 18px;
+        transition: border-color 0.2s;
+      }
+      .search:focus {
+        border-color: var(--sage);
+        outline: none;
+      }
 
-/* =========================================================
+      /* =========================================================
    LISTING CARDS
    ========================================================= */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s,border-color .25s;box-shadow:var(--sh-sm)}
-.card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg),0 0 0 1px rgba(167,201,87,.35);border-color:var(--sage)}
-.pic{position:relative;aspect-ratio:16/11;background:#E3E0D3}
-.pic svg,.pic img{width:100%;height:100%;object-fit:cover;display:block}
-.tag{position:absolute;left:12px;top:12px;background:var(--card);border-radius:99px;padding:4px 12px;font:600 12px var(--text)}
-.tag.mine{background:var(--sage);color:#0B3D2E;left:auto;right:12px}
-.tag.feat{background:var(--green);color:#fff}
-.cbody{padding:18px 20px 22px;display:flex;flex-direction:column;gap:6px;flex:1}
-.price{font:700 22px var(--wide);font-stretch:115%;color:var(--charcoal)}
-.cbody h3{margin:0;font-size:17px;font-weight:600;line-height:1.3;color:var(--charcoal)}
-.meta{color:var(--mute);font-size:14px}
-.cbody .btn{margin-top:auto;align-self:flex-start;padding:11px 22px;font-size:12px}
-.empty{grid-column:1/-1;padding:48px;border:2px dashed var(--line);border-radius:22px;text-align:center;color:var(--mute)}
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s,
+          border-color 0.25s;
+        box-shadow: var(--sh-sm);
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow:
+          var(--sh-lg),
+          0 0 0 1px rgba(167, 201, 87, 0.35);
+        border-color: var(--sage);
+      }
+      .pic {
+        position: relative;
+        aspect-ratio: 16/11;
+        background: #e3e0d3;
+      }
+      .pic svg,
+      .pic img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .tag {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        background: var(--card);
+        border-radius: 99px;
+        padding: 4px 12px;
+        font: 600 12px var(--text);
+      }
+      .tag.mine {
+        background: var(--sage);
+        color: #0b3d2e;
+        left: auto;
+        right: 12px;
+      }
+      .tag.feat {
+        background: var(--green);
+        color: #fff;
+      }
+      .cbody {
+        padding: 18px 20px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 1;
+      }
+      .price {
+        font: 700 22px var(--wide);
+        font-stretch: 115%;
+        color: var(--charcoal);
+      }
+      .cbody h3 {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--charcoal);
+      }
+      .meta {
+        color: var(--mute);
+        font-size: 14px;
+      }
+      .cbody .btn {
+        margin-top: auto;
+        align-self: flex-start;
+        padding: 11px 22px;
+        font-size: 12px;
+      }
+      .empty {
+        grid-column: 1/-1;
+        padding: 48px;
+        border: 2px dashed var(--line);
+        border-radius: 22px;
+        text-align: center;
+        color: var(--mute);
+      }
 
-/* =========================================================
+      /* =========================================================
    BUTTONS
    ========================================================= */
-.btn{display:inline-block;border:0;border-radius:99px;padding:14px 28px;font:700 13px var(--wide);font-stretch:125%;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;background:var(--sage);color:#0B3D2E;text-decoration:none;transition:background .2s,transform .15s}
-.btn:hover{background:var(--sage-h)}
-.btn:active{transform:scale(.97)}
-.btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.8)}
-.btn.ghost:hover{background:rgba(255,255,255,.15)}
-.btn.dark{background:var(--charcoal);color:var(--ivory)}.btn.dark:hover{background:var(--green)}
-.btn[disabled]{opacity:.45;cursor:not-allowed}
+      .btn {
+        display: inline-block;
+        border: 0;
+        border-radius: 99px;
+        padding: 14px 28px;
+        font: 700 13px var(--wide);
+        font-stretch: 125%;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        cursor: pointer;
+        background: var(--sage);
+        color: #0b3d2e;
+        text-decoration: none;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .btn:hover {
+        background: var(--sage-h);
+      }
+      .btn:active {
+        transform: scale(0.97);
+      }
+      .btn.ghost {
+        background: transparent;
+        color: #fff;
+        box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.8);
+      }
+      .btn.ghost:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+      .btn.dark {
+        background: var(--charcoal);
+        color: var(--ivory);
+      }
+      .btn.dark:hover {
+        background: var(--green);
+      }
+      .btn[disabled] {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
 
-/* =========================================================
+      /* =========================================================
    AGENTS
    ========================================================= */
-.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
-.agent-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 22px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;transition:transform .2s,box-shadow .2s;box-shadow:var(--sh-sm)}
-.agent-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md)}
-.agent-av{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font:700 20px var(--wide);color:#fff;flex-shrink:0;overflow:hidden;box-shadow:0 4px 12px rgba(11,61,46,.18);border:2px solid var(--sage);background:var(--green)}
-.agent-av img{width:100%;height:100%;object-fit:cover;display:block}
-.agent-name{font:700 16px var(--wide);font-stretch:120%;margin:0;color:var(--charcoal)}
-.agent-city{font-size:13px;color:var(--mute);margin-top:2px}
-.agent-spec{font-size:13px;color:var(--mute);line-height:1.4}
-.agent-count{display:inline-block;background:var(--sage-dim);color:var(--green);font:600 12px var(--text);border-radius:99px;padding:4px 12px;margin-top:4px}
+      .agents-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+      }
+      .agent-card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 28px 22px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        box-shadow: var(--sh-sm);
+      }
+      .agent-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--sh-md);
+      }
+      .agent-av {
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font: 700 20px var(--wide);
+        color: #fff;
+        flex-shrink: 0;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(11, 61, 46, 0.18);
+        border: 2px solid var(--sage);
+        background: var(--green);
+      }
+      .agent-av img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .agent-name {
+        font: 700 16px var(--wide);
+        font-stretch: 120%;
+        margin: 0;
+        color: var(--charcoal);
+      }
+      .agent-city {
+        font-size: 13px;
+        color: var(--mute);
+        margin-top: 2px;
+      }
+      .agent-spec {
+        font-size: 13px;
+        color: var(--mute);
+        line-height: 1.4;
+      }
+      .agent-count {
+        display: inline-block;
+        background: var(--sage-dim);
+        color: var(--green);
+        font: 600 12px var(--text);
+        border-radius: 99px;
+        padding: 4px 12px;
+        margin-top: 4px;
+      }
 
-/* =========================================================
+      /* =========================================================
    HOW IT WORKS
    ========================================================= */
-.how-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:32px}
-.how-step{background:var(--cream);color:var(--charcoal);border-radius:22px;padding:28px 24px;display:flex;flex-direction:column;gap:14px;border:1px solid var(--line)}
-.how-icon{width:50px;height:50px;background:var(--green);border-radius:14px;display:grid;place-items:center;flex-shrink:0}
-.how-num{font:700 11px var(--wide);letter-spacing:.12em;color:var(--green);text-transform:uppercase}
-.how-step h3{margin:0;font:700 20px var(--wide);font-stretch:120%;color:var(--charcoal)}
-.how-step p{margin:0;font-size:15px;line-height:1.55;color:var(--mute)}
+      .how-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 24px;
+        margin-top: 32px;
+      }
+      .how-step {
+        background: var(--cream);
+        color: var(--charcoal);
+        border-radius: 22px;
+        padding: 28px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        border: 1px solid var(--line);
+      }
+      .how-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--green);
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+      }
+      .how-num {
+        font: 700 11px var(--wide);
+        letter-spacing: 0.12em;
+        color: var(--green);
+        text-transform: uppercase;
+      }
+      .how-step h3 {
+        margin: 0;
+        font: 700 20px var(--wide);
+        font-stretch: 120%;
+        color: var(--charcoal);
+      }
+      .how-step p {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.55;
+        color: var(--mute);
+      }
 
-/* =========================================================
+      /* =========================================================
    TESTIMONIALS
    ========================================================= */
-.tcard-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
-.tcard-track::-webkit-scrollbar{display:none}
-.tcard{flex:0 0 min(380px,88vw);scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px 26px;display:flex;flex-direction:column;gap:16px;box-shadow:var(--sh-sm)}
-.tcard-stars{display:flex;gap:3px}
-.tcard-stars svg{width:18px;height:18px;fill:var(--sage)}
-.tcard q{font-size:15px;line-height:1.65;color:var(--charcoal);flex:1;quotes:"\201C""\201D"}
-.tcard q::before{content:open-quote}.tcard q::after{content:close-quote}
-.tcard-meta{display:flex;align-items:center;gap:12px;margin-top:4px}
-.tcard-av{width:46px;height:46px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font:700 14px var(--wide);flex-shrink:0;overflow:hidden;box-shadow:0 3px 8px rgba(11,61,46,.15);border:2px solid var(--sage)}
-.tcard-av img{width:100%;height:100%;object-fit:cover;display:block}
-.tcard-name{font:600 14px var(--text);margin:0;color:var(--charcoal)}
-.tcard-city{font-size:13px;color:var(--mute)}
-.tcarousel-ctrl{display:flex;gap:12px;align-items:center;justify-content:center;margin-top:24px}
-.tc-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;display:grid;place-items:center;transition:background .2s,border-color .2s;box-shadow:var(--sh-sm)}
-.tc-btn:hover{background:var(--sage);border-color:var(--sage)}
-.tc-btn:hover svg{color:#0B3D2E}
-.tc-btn svg{width:16px;height:16px;color:var(--charcoal);transition:color .2s}
-.tc-dots{display:flex;gap:8px}
-.tc-dots span{width:8px;height:8px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .2s,transform .2s;border:0;padding:0;display:block}
-.tc-dots span.on{background:var(--sage);transform:scale(1.3)}
+      .tcard-track {
+        display: flex;
+        gap: 24px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding-bottom: 4px;
+      }
+      .tcard-track::-webkit-scrollbar {
+        display: none;
+      }
+      .tcard {
+        flex: 0 0 min(380px, 88vw);
+        scroll-snap-align: start;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 28px 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        box-shadow: var(--sh-sm);
+      }
+      .tcard-stars {
+        display: flex;
+        gap: 3px;
+      }
+      .tcard-stars svg {
+        width: 18px;
+        height: 18px;
+        fill: var(--sage);
+      }
+      .tcard q {
+        font-size: 15px;
+        line-height: 1.65;
+        color: var(--charcoal);
+        flex: 1;
+        quotes: "\201C" "\201D";
+      }
+      .tcard q::before {
+        content: open-quote;
+      }
+      .tcard q::after {
+        content: close-quote;
+      }
+      .tcard-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 4px;
+      }
+      .tcard-av {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: var(--green);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font: 700 14px var(--wide);
+        flex-shrink: 0;
+        overflow: hidden;
+        box-shadow: 0 3px 8px rgba(11, 61, 46, 0.15);
+        border: 2px solid var(--sage);
+      }
+      .tcard-av img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .tcard-name {
+        font: 600 14px var(--text);
+        margin: 0;
+        color: var(--charcoal);
+      }
+      .tcard-city {
+        font-size: 13px;
+        color: var(--mute);
+      }
+      .tcarousel-ctrl {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 24px;
+      }
+      .tc-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        background: var(--card);
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+        box-shadow: var(--sh-sm);
+      }
+      .tc-btn:hover {
+        background: var(--sage);
+        border-color: var(--sage);
+      }
+      .tc-btn:hover svg {
+        color: #0b3d2e;
+      }
+      .tc-btn svg {
+        width: 16px;
+        height: 16px;
+        color: var(--charcoal);
+        transition: color 0.2s;
+      }
+      .tc-dots {
+        display: flex;
+        gap: 8px;
+      }
+      .tc-dots span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--line);
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+        border: 0;
+        padding: 0;
+        display: block;
+      }
+      .tc-dots span.on {
+        background: var(--sage);
+        transform: scale(1.3);
+      }
 
-/* =========================================================
+      /* =========================================================
    FAQ
    ========================================================= */
-.faq-list{display:flex;flex-direction:column;margin-top:28px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--card)}
-details.faq-item{border-bottom:1px solid var(--line)}
-details.faq-item:last-child{border-bottom:0}
-details.faq-item summary{padding:20px 24px;font:600 16px var(--text);color:var(--charcoal);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:background .2s;user-select:none}
-details.faq-item summary::-webkit-details-marker{display:none}
-details.faq-item summary:hover{background:var(--ivory-subtle)}
-details.faq-item summary::after{content:'+';font-size:22px;color:var(--mute);flex-shrink:0;line-height:1;transition:transform .28s}
-details.faq-item[open]>summary{background:var(--ivory-subtle)}
-details.faq-item[open]>summary::after{transform:rotate(45deg)}
-.faq-body{padding:0 24px 22px;color:var(--mute);line-height:1.65;font-size:15px}
+      .faq-list {
+        display: flex;
+        flex-direction: column;
+        margin-top: 28px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        overflow: hidden;
+        background: var(--card);
+      }
+      details.faq-item {
+        border-bottom: 1px solid var(--line);
+      }
+      details.faq-item:last-child {
+        border-bottom: 0;
+      }
+      details.faq-item summary {
+        padding: 20px 24px;
+        font: 600 16px var(--text);
+        color: var(--charcoal);
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        transition: background 0.2s;
+        user-select: none;
+      }
+      details.faq-item summary::-webkit-details-marker {
+        display: none;
+      }
+      details.faq-item summary:hover {
+        background: var(--ivory-subtle);
+      }
+      details.faq-item summary::after {
+        content: "+";
+        font-size: 22px;
+        color: var(--mute);
+        flex-shrink: 0;
+        line-height: 1;
+        transition: transform 0.28s;
+      }
+      details.faq-item[open] > summary {
+        background: var(--ivory-subtle);
+      }
+      details.faq-item[open] > summary::after {
+        transform: rotate(45deg);
+      }
+      .faq-body {
+        padding: 0 24px 22px;
+        color: var(--mute);
+        line-height: 1.65;
+        font-size: 15px;
+      }
 
-/* =========================================================
+      /* =========================================================
    BLOG
    ========================================================= */
-.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
-.blog-card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;box-shadow:var(--sh-sm)}
-.blog-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md)}
-.blog-cover{aspect-ratio:16/9;overflow:hidden}
-.blog-cover svg{width:100%;height:100%;display:block}
-.blog-body{padding:20px 22px 24px;flex:1;display:flex;flex-direction:column;gap:10px}
-.blog-cat{display:inline-block;font:600 11px var(--wide);letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:var(--sage-dim);border-radius:99px;padding:4px 12px;width:fit-content}
-.blog-card h3{margin:0;font:600 17px var(--text);line-height:1.35;color:var(--charcoal)}
-.blog-excerpt{font-size:14px;color:var(--mute);line-height:1.6;margin:0}
-.blog-date{font-size:13px;color:var(--mute)}
-.blog-link{font:600 13px var(--wide);font-stretch:120%;letter-spacing:.06em;text-transform:uppercase;color:var(--green);transition:color .2s;margin-top:auto;padding-top:4px;display:block}
-.blog-link:hover{color:var(--sage)}
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 24px;
+      }
+      .blog-card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        box-shadow: var(--sh-sm);
+      }
+      .blog-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--sh-md);
+      }
+      .blog-cover {
+        aspect-ratio: 16/9;
+        overflow: hidden;
+      }
+      .blog-cover svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .blog-body {
+        padding: 20px 22px 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .blog-cat {
+        display: inline-block;
+        font: 600 11px var(--wide);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--green);
+        background: var(--sage-dim);
+        border-radius: 99px;
+        padding: 4px 12px;
+        width: fit-content;
+      }
+      .blog-card h3 {
+        margin: 0;
+        font: 600 17px var(--text);
+        line-height: 1.35;
+        color: var(--charcoal);
+      }
+      .blog-excerpt {
+        font-size: 14px;
+        color: var(--mute);
+        line-height: 1.6;
+        margin: 0;
+      }
+      .blog-date {
+        font-size: 13px;
+        color: var(--mute);
+      }
+      .blog-link {
+        font: 600 13px var(--wide);
+        font-stretch: 120%;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--green);
+        transition: color 0.2s;
+        margin-top: auto;
+        padding-top: 4px;
+        display: block;
+      }
+      .blog-link:hover {
+        color: var(--sage);
+      }
 
-/* =========================================================
+      /* =========================================================
    NEWSLETTER
    ========================================================= */
-.newsletter{background:linear-gradient(135deg,var(--green) 0%,#144D3B 55%,#072018 100%);color:#fff;padding:76px clamp(18px,4vw,56px)}
-.newsletter-inner{max-width:620px;margin:0 auto;text-align:center}
-.newsletter h2{font:300 clamp(28px,4vw,46px)/1.1 var(--wide);font-stretch:140%;color:#fff;margin:0 0 12px}
-.newsletter p{color:rgba(248,247,241,.75);margin:0 0 32px;font-size:16px}
-.newsletter-form{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-.newsletter-form input{flex:1;min-width:220px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:14px 22px;color:#fff;font-size:15px}
-.newsletter-form input::placeholder{color:rgba(255,255,255,.55)}
-.newsletter-form input:focus{outline:none;border-color:var(--sage);background:rgba(255,255,255,.18)}
-.social-row{display:flex;gap:14px;justify-content:center;margin-top:30px}
-.social-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.22);display:grid;place-items:center;cursor:pointer;transition:background .2s,border-color .2s;text-decoration:none}
-.social-btn:hover{background:var(--sage);border-color:var(--sage)}
-.social-btn:hover svg{color:#0B3D2E}
-.social-btn svg{width:18px;height:18px;color:rgba(255,255,255,.85);transition:color .2s}
+      .newsletter {
+        background: linear-gradient(
+          135deg,
+          var(--green) 0%,
+          #144d3b 55%,
+          #072018 100%
+        );
+        color: #fff;
+        padding: 76px clamp(18px, 4vw, 56px);
+      }
+      .newsletter-inner {
+        max-width: 620px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .newsletter h2 {
+        font: 300 clamp(28px, 4vw, 46px)/1.1 var(--wide);
+        font-stretch: 140%;
+        color: #fff;
+        margin: 0 0 12px;
+      }
+      .newsletter p {
+        color: rgba(248, 247, 241, 0.75);
+        margin: 0 0 32px;
+        font-size: 16px;
+      }
+      .newsletter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+      .newsletter-form input {
+        flex: 1;
+        min-width: 220px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 99px;
+        padding: 14px 22px;
+        color: #fff;
+        font-size: 15px;
+      }
+      .newsletter-form input::placeholder {
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .newsletter-form input:focus {
+        outline: none;
+        border-color: var(--sage);
+        background: rgba(255, 255, 255, 0.18);
+      }
+      .social-row {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        margin-top: 30px;
+      }
+      .social-btn {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+        text-decoration: none;
+      }
+      .social-btn:hover {
+        background: var(--sage);
+        border-color: var(--sage);
+      }
+      .social-btn:hover svg {
+        color: #0b3d2e;
+      }
+      .social-btn svg {
+        width: 18px;
+        height: 18px;
+        color: rgba(255, 255, 255, 0.85);
+        transition: color 0.2s;
+      }
 
-/* =========================================================
+      /* =========================================================
    FOOTER
    ========================================================= */
-footer{background:#072018;color:rgba(248,247,241,.72);padding:60px clamp(18px,4vw,56px) 0}
-.foot-inner{max-width:1240px;margin:0 auto}
-.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.6fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08)}
-.foot-logo{display:inline-flex;align-items:center;gap:10px;font:800 24px var(--wide);font-stretch:140%;letter-spacing:.02em;color:#fff;text-decoration:none;margin-bottom:16px}
-.foot-logo .logo-mark{width:34px;height:34px}
-.foot-logo .logo-text b{color:var(--sage)}
-.foot-brand p{font-size:14px;line-height:1.65;max-width:26ch;margin:0 0 20px}
-.foot-h{font:700 11px var(--wide);font-stretch:125%;letter-spacing:.14em;text-transform:uppercase;color:rgba(248,247,241,.45);margin:0 0 18px}
-.foot-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
-.foot-links li a,.foot-links li button{font-size:14px;color:rgba(248,247,241,.72);background:none;border:0;cursor:pointer;padding:0;transition:color .2s;text-align:left;text-decoration:none}
-.foot-links li a:hover,.foot-links li button:hover{color:var(--sage)}
-.foot-contact p{font-size:14px;margin:0 0 12px;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
-.foot-contact svg{width:15px;height:15px;color:var(--sage);flex-shrink:0;margin-top:3px}
-.foot-bar{text-align:center;padding:20px 0;font-size:13px;color:rgba(248,247,241,.35)}
+      footer {
+        background: #072018;
+        color: rgba(248, 247, 241, 0.72);
+        padding: 60px clamp(18px, 4vw, 56px) 0;
+      }
+      .foot-inner {
+        max-width: 1240px;
+        margin: 0 auto;
+      }
+      .foot-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1.6fr;
+        gap: 48px;
+        padding-bottom: 48px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .foot-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font: 800 24px var(--wide);
+        font-stretch: 140%;
+        letter-spacing: 0.02em;
+        color: #fff;
+        text-decoration: none;
+        margin-bottom: 16px;
+      }
+      .foot-logo .logo-mark {
+        width: 34px;
+        height: 34px;
+      }
+      .foot-logo .logo-text b {
+        color: var(--sage);
+      }
+      .foot-brand p {
+        font-size: 14px;
+        line-height: 1.65;
+        max-width: 26ch;
+        margin: 0 0 20px;
+      }
+      .foot-h {
+        font: 700 11px var(--wide);
+        font-stretch: 125%;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(248, 247, 241, 0.45);
+        margin: 0 0 18px;
+      }
+      .foot-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+      }
+      .foot-links li a,
+      .foot-links li button {
+        font-size: 14px;
+        color: rgba(248, 247, 241, 0.72);
+        background: none;
+        border: 0;
+        cursor: pointer;
+        padding: 0;
+        transition: color 0.2s;
+        text-align: left;
+        text-decoration: none;
+      }
+      .foot-links li a:hover,
+      .foot-links li button:hover {
+        color: var(--sage);
+      }
+      .foot-contact p {
+        font-size: 14px;
+        margin: 0 0 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        line-height: 1.5;
+      }
+      .foot-contact svg {
+        width: 15px;
+        height: 15px;
+        color: var(--sage);
+        flex-shrink: 0;
+        margin-top: 3px;
+      }
+      .foot-bar {
+        text-align: center;
+        padding: 20px 0;
+        font-size: 13px;
+        color: rgba(248, 247, 241, 0.35);
+      }
 
-/* =========================================================
+      /* =========================================================
    DIALOGS
    ========================================================= */
-dialog{border:0;border-radius:26px;padding:0;width:min(760px,94vw);max-height:92vh;background:var(--card);color:var(--ink);box-shadow:0 30px 80px -20px rgba(7,32,24,.55)}
-dialog::backdrop{background:rgba(7,32,24,.6);backdrop-filter:blur(4px)}
-.dhead{display:flex;justify-content:space-between;align-items:center;padding:20px 26px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card);z-index:3}
-.dhead h2{font-size:22px;margin:0;color:var(--charcoal)}
-.x{border:0;background:var(--cream);color:var(--charcoal);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px;display:grid;place-items:center;transition:background .2s}
-.x:hover{background:var(--line)}
-.dbody{padding:22px 26px 28px;overflow-y:auto;max-height:calc(92vh - 72px)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px;color:var(--charcoal)}
-input[type=text],input[type=tel],input[type=number],select,textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:11px 14px;transition:border-color .2s;color:var(--charcoal)}
-input[type=text]:focus,input[type=tel]:focus,input[type=number]:focus,select:focus,textarea:focus{border-color:var(--sage);outline:none}
-textarea{min-height:90px;resize:vertical}
-.slots{display:flex;flex-wrap:wrap;gap:8px}
-.slot{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:8px 14px;cursor:pointer;font-weight:500;transition:background .15s,border-color .15s,color .15s;color:var(--charcoal)}
-.slot:hover:not([disabled]){border-color:var(--sage)}
-.slot.on{background:var(--sage);border-color:var(--sage);color:#0B3D2E;font-weight:700}
-.slot[disabled]{opacity:.4;text-decoration:line-through;cursor:not-allowed}
-.agent-inline{display:flex;gap:14px;align-items:center;background:var(--cream);color:var(--charcoal);border-radius:16px;padding:14px 16px;margin:16px 0}
-.avatar{width:46px;height:46px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font:700 16px var(--wide);flex-shrink:0;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:cover;display:block}
-.drop{display:block;border:2px dashed var(--line);border-radius:16px;padding:18px;text-align:center;cursor:pointer;color:var(--mute);transition:border-color .2s}
-.drop:hover{border-color:var(--sage)}
-.drop img{max-height:160px;border-radius:10px;margin-top:10px}
-.dpic{border-radius:18px;overflow:hidden;aspect-ratio:16/8}.dpic svg,.dpic img{width:100%;height:100%;object-fit:cover;display:block}
-.days{display:flex;flex-wrap:wrap;gap:8px}
-.days label{margin:0;font-weight:500}
-.days input{position:absolute;opacity:0}
-.days span{display:block;border:1px solid var(--line);border-radius:10px;padding:6px 12px;cursor:pointer;transition:background .15s,color .15s;color:var(--charcoal)}
-.days input:checked+span{background:var(--charcoal);color:var(--ivory);border-color:var(--charcoal)}
-.days input:focus-visible+span{outline:3px solid var(--sage)}
-.appt{border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.appt h4{margin:0 0 2px;font-size:16px;color:var(--charcoal)}
-.st{font:600 12px var(--text);padding:3px 10px;border-radius:99px;background:var(--cream);color:var(--charcoal);display:inline-block}
-.st.confirmed{background:#E2F0D9;color:#1E5E2F}.st.declined{background:#FADBD8;color:#94211A}
-.row{display:flex;gap:8px;align-items:center}
-.row button{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:6px 12px;cursor:pointer;transition:background .2s;color:var(--charcoal)}
-.row button:hover{background:var(--line)}
-.ok{background:#E2F0D9;color:#1E5E2F;border-radius:16px;padding:18px;margin-top:16px}
-.err{color:var(--bad);font-size:14px;margin-top:8px;min-height:1em}
-.toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--charcoal);color:var(--ivory);padding:12px 24px;border-radius:99px;z-index:9999;font-weight:500;white-space:nowrap;animation:toastIn .3s ease;box-shadow:0 8px 24px rgba(7,32,24,.3)}
-@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%)}}
-.appt h4{margin:0 0 2px;font-size:16px}
-.st{font:600 12px var(--text);padding:3px 10px;border-radius:99px;background:var(--cream);color:#12202E;display:inline-block}
-.st.confirmed{background:#cdeedd;color:#14613f}.st.declined{background:#f6d6d2;color:#8a2a22}
-.row{display:flex;gap:8px;align-items:center}
-.row button{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:6px 12px;cursor:pointer;transition:background .2s}
-.row button:hover{background:var(--line)}
-.ok{background:#cdeedd;color:#14613f;border-radius:16px;padding:18px;margin-top:16px}
-.err{color:var(--bad);font-size:14px;margin-top:8px;min-height:1em}
-.toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 24px;border-radius:99px;z-index:9999;font-weight:500;white-space:nowrap;animation:toastIn .3s ease}
-@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%)}}
+      dialog {
+        border: 0;
+        border-radius: 26px;
+        padding: 0;
+        width: min(760px, 94vw);
+        max-height: 92vh;
+        background: var(--card);
+        color: var(--ink);
+        box-shadow: 0 30px 80px -20px rgba(7, 32, 24, 0.55);
+      }
+      dialog::backdrop {
+        background: rgba(7, 32, 24, 0.6);
+        backdrop-filter: blur(4px);
+      }
+      .dhead {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 26px;
+        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        background: var(--card);
+        z-index: 3;
+      }
+      .dhead h2 {
+        font-size: 22px;
+        margin: 0;
+        color: var(--charcoal);
+      }
+      .x {
+        border: 0;
+        background: var(--cream);
+        color: var(--charcoal);
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 18px;
+        display: grid;
+        place-items: center;
+        transition: background 0.2s;
+      }
+      .x:hover {
+        background: var(--line);
+      }
+      .dbody {
+        padding: 22px 26px 28px;
+        overflow-y: auto;
+        max-height: calc(92vh - 72px);
+      }
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        font-size: 14px;
+        margin: 14px 0 6px;
+        color: var(--charcoal);
+      }
+      input[type="text"],
+      input[type="tel"],
+      input[type="number"],
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: var(--bg);
+        border-radius: 12px;
+        padding: 11px 14px;
+        transition: border-color 0.2s;
+        color: var(--charcoal);
+      }
+      input[type="text"]:focus,
+      input[type="tel"]:focus,
+      input[type="number"]:focus,
+      select:focus,
+      textarea:focus {
+        border-color: var(--sage);
+        outline: none;
+      }
+      textarea {
+        min-height: 90px;
+        resize: vertical;
+      }
+      .slots {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .slot {
+        border: 1px solid var(--line);
+        background: var(--bg);
+        border-radius: 12px;
+        padding: 8px 14px;
+        cursor: pointer;
+        font-weight: 500;
+        transition:
+          background 0.15s,
+          border-color 0.15s,
+          color 0.15s;
+        color: var(--charcoal);
+      }
+      .slot:hover:not([disabled]) {
+        border-color: var(--sage);
+      }
+      .slot.on {
+        background: var(--sage);
+        border-color: var(--sage);
+        color: #0b3d2e;
+        font-weight: 700;
+      }
+      .slot[disabled] {
+        opacity: 0.4;
+        text-decoration: line-through;
+        cursor: not-allowed;
+      }
+      .agent-inline {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        background: var(--cream);
+        color: var(--charcoal);
+        border-radius: 16px;
+        padding: 14px 16px;
+        margin: 16px 0;
+      }
+      .avatar {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: var(--green);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font: 700 16px var(--wide);
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .drop {
+        display: block;
+        border: 2px dashed var(--line);
+        border-radius: 16px;
+        padding: 18px;
+        text-align: center;
+        cursor: pointer;
+        color: var(--mute);
+        transition: border-color 0.2s;
+      }
+      .drop:hover {
+        border-color: var(--sage);
+      }
+      .drop img {
+        max-height: 160px;
+        border-radius: 10px;
+        margin-top: 10px;
+      }
+      .dpic {
+        border-radius: 18px;
+        overflow: hidden;
+        aspect-ratio: 16/8;
+      }
+      .dpic svg,
+      .dpic img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .days {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .days label {
+        margin: 0;
+        font-weight: 500;
+      }
+      .days input {
+        position: absolute;
+        opacity: 0;
+      }
+      .days span {
+        display: block;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 6px 12px;
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          color 0.15s;
+        color: var(--charcoal);
+      }
+      .days input:checked + span {
+        background: var(--charcoal);
+        color: var(--ivory);
+        border-color: var(--charcoal);
+      }
+      .days input:focus-visible + span {
+        outline: 3px solid var(--sage);
+      }
+      .appt {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px 16px;
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .appt h4 {
+        margin: 0 0 2px;
+        font-size: 16px;
+        color: var(--charcoal);
+      }
+      .st {
+        font: 600 12px var(--text);
+        padding: 3px 10px;
+        border-radius: 99px;
+        background: var(--cream);
+        color: var(--charcoal);
+        display: inline-block;
+      }
+      .st.confirmed {
+        background: #e2f0d9;
+        color: #1e5e2f;
+      }
+      .st.declined {
+        background: #fadbd8;
+        color: #94211a;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .row button {
+        border: 1px solid var(--line);
+        background: var(--bg);
+        border-radius: 10px;
+        padding: 6px 12px;
+        cursor: pointer;
+        transition: background 0.2s;
+        color: var(--charcoal);
+      }
+      .row button:hover {
+        background: var(--line);
+      }
+      .ok {
+        background: #e2f0d9;
+        color: #1e5e2f;
+        border-radius: 16px;
+        padding: 18px;
+        margin-top: 16px;
+      }
+      .err {
+        color: var(--bad);
+        font-size: 14px;
+        margin-top: 8px;
+        min-height: 1em;
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+        transform: translateX(-50%);
+        background: var(--charcoal);
+        color: var(--ivory);
+        padding: 12px 24px;
+        border-radius: 99px;
+        z-index: 9999;
+        font-weight: 500;
+        white-space: nowrap;
+        animation: toastIn 0.3s ease;
+        box-shadow: 0 8px 24px rgba(7, 32, 24, 0.3);
+      }
+      @keyframes toastIn {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(-50%);
+        }
+      }
+      .appt h4 {
+        margin: 0 0 2px;
+        font-size: 16px;
+      }
+      .st {
+        font: 600 12px var(--text);
+        padding: 3px 10px;
+        border-radius: 99px;
+        background: var(--cream);
+        color: #12202e;
+        display: inline-block;
+      }
+      .st.confirmed {
+        background: #cdeedd;
+        color: #14613f;
+      }
+      .st.declined {
+        background: #f6d6d2;
+        color: #8a2a22;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .row button {
+        border: 1px solid var(--line);
+        background: var(--bg);
+        border-radius: 10px;
+        padding: 6px 12px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .row button:hover {
+        background: var(--line);
+      }
+      .ok {
+        background: #cdeedd;
+        color: #14613f;
+        border-radius: 16px;
+        padding: 18px;
+        margin-top: 16px;
+      }
+      .err {
+        color: var(--bad);
+        font-size: 14px;
+        margin-top: 8px;
+        min-height: 1em;
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+        transform: translateX(-50%);
+        background: var(--ink);
+        color: var(--bg);
+        padding: 12px 24px;
+        border-radius: 99px;
+        z-index: 9999;
+        font-weight: 500;
+        white-space: nowrap;
+        animation: toastIn 0.3s ease;
+      }
+      @keyframes toastIn {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(-50%);
+        }
+      }
 
-/* =========================================================
-   RESPONSIVE
+      /* =========================================================
+   RESPONSIVE DESIGN (DESKTOP, TABLET, MOBILE)
    ========================================================= */
-@media(max-width:1100px){.foot-grid{grid-template-columns:1fr 1fr;row-gap:36px;column-gap:40px}}
-@media(max-width:900px){
-  .heroBody{grid-template-columns:1fr;padding-bottom:70px}
-  .links .hide-m{display:none}
-  .burger{display:flex}
-  .tiles{max-width:520px}
-}
-@media(max-width:640px){
-  .foot-grid{grid-template-columns:1fr;gap:28px}
-  .newsletter-form{flex-direction:column}
-  .newsletter-form input,.newsletter-form .btn{width:100%}
-}
-@media(max-width:520px){
-  .two{grid-template-columns:1fr}
-  .tiles{grid-template-columns:1fr 1fr}
-  .t-plain h3{font-size:26px}.t-cyan h3{font-size:24px}
-  .links{gap:12px}
-  .hero-search{flex-direction:column}
-  .hero-search input,.hero-search select{border-radius:16px;width:100%}
-}
-</style>
-</head>
-<body>
 
-<!-- NAV -->
-<nav class="top" id="topNav" aria-label="Main navigation">
-  <!-- =========================================================
+      /* Ultra-wide & Large Desktop (1440px+) */
+      @media (min-width: 1440px) {
+        nav.top {
+          padding-left: max(32px, calc((100vw - 1280px) / 2));
+          padding-right: max(32px, calc((100vw - 1280px) / 2));
+        }
+        .heroBody {
+          max-width: 1280px;
+          margin: 0 auto;
+          width: 100%;
+        }
+        main {
+          max-width: 1280px;
+        }
+        .stats-inner,
+        .foot-inner {
+          max-width: 1280px;
+        }
+      }
+
+      /* Desktop / Laptop Grid Rules */
+      @media (min-width: 901px) {
+        .grid {
+          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        }
+        .agents-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .how-steps {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .blog-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      /* Medium Screens / Small Desktop (1100px) */
+      @media (max-width: 1100px) {
+        .foot-grid {
+          grid-template-columns: repeat(2, 1fr);
+          row-gap: 36px;
+          column-gap: 40px;
+        }
+      }
+
+      /* Tablet Breakpoint (900px and below) */
+      @media (max-width: 900px) {
+        .heroBody {
+          grid-template-columns: 1fr;
+          padding-top: clamp(24px, 4vh, 40px);
+          padding-bottom: 70px;
+          gap: 36px;
+        }
+        .links .hide-m {
+          display: none;
+        }
+        .burger {
+          display: flex;
+        }
+        .tiles {
+          max-width: 600px;
+          margin: 0 auto;
+          width: 100%;
+        }
+        .stats-inner {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+        .agents-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .blog-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        main {
+          padding: 56px clamp(16px, 3.5vw, 32px) 72px;
+        }
+      }
+
+      /* Mobile Landscape & Standard Tablet (768px and below) */
+      @media (max-width: 768px) {
+        .how-steps {
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+        .tcard-track {
+          gap: 16px;
+        }
+        .tcard {
+          flex: 0 0 min(360px, 85vw);
+        }
+      }
+
+      /* Mobile / Phablet (640px and below) */
+      @media (max-width: 640px) {
+        nav.top {
+          height: 66px;
+          padding: 0 16px;
+        }
+        .hero {
+          padding-top: 66px;
+          min-height: auto;
+        }
+        .heroBody {
+          padding: 24px 16px 64px;
+        }
+        h1 {
+          font-size: clamp(34px, 10vw, 52px);
+          line-height: 1.02;
+        }
+        .lede {
+          font-size: 15px;
+          line-height: 1.55;
+          margin-top: 14px;
+        }
+        .hero-search {
+          flex-direction: column;
+          width: 100%;
+          max-width: 100%;
+        }
+        .hero-search input,
+        .hero-search select {
+          border-radius: 14px;
+          width: 100%;
+          padding: 13px 18px;
+          font-size: 16px;
+        }
+        .hero-search button {
+          width: 100%;
+          border-radius: 14px;
+          padding: 14px 20px;
+          text-align: center;
+        }
+
+        /* Filter bar: horizontally swipeable chips */
+        .filters {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 12px;
+        }
+        .search {
+          width: 100%;
+          min-width: 0;
+          font-size: 16px;
+        }
+        #types {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          padding-bottom: 4px;
+          width: 100%;
+          display: flex;
+          gap: 8px;
+          flex-wrap: nowrap;
+        }
+        #types::-webkit-scrollbar {
+          display: none;
+        }
+        .chip {
+          white-space: nowrap;
+          flex-shrink: 0;
+          padding: 8px 16px;
+          font-size: 14px;
+        }
+
+        /* Listings & Content Grids */
+        .grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        .agents-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .blog-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        /* Newsletter & Footer */
+        .newsletter {
+          padding: 56px 16px;
+        }
+        .newsletter-form {
+          flex-direction: column;
+          width: 100%;
+        }
+        .newsletter-form input,
+        .newsletter-form .btn {
+          width: 100%;
+          font-size: 16px;
+        }
+        .foot-grid {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+
+        /* Mobile Bottom-Sheet Dialog */
+        dialog {
+          width: 100vw;
+          max-width: 100vw;
+          margin: auto 0 0 0;
+          border-radius: 24px 24px 0 0;
+          max-height: 92vh;
+          animation: sheetSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes sheetSlideUp {
+          from {
+            transform: translateY(100%);
+          }
+          to {
+            transform: translateY(0);
+          }
+        }
+        .dbody {
+          padding: 16px 18px calc(24px + env(safe-area-inset-bottom, 0px));
+          max-height: calc(92vh - 64px);
+        }
+        .dhead {
+          padding: 16px 18px;
+        }
+        .two {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+      }
+
+      /* Small Mobile Screens (480px and below) */
+      @media (max-width: 480px) {
+        nav.top {
+          padding: 0 12px;
+        }
+        .logo {
+          font-size: 20px;
+          gap: 8px;
+        }
+        .logo-mark {
+          width: 30px;
+          height: 30px;
+        }
+        /* In compact navbar, hide 'List a property' button so logo + visits + hamburger fit with zero overflow */
+        nav.top .links button[data-act="post"] {
+          display: none;
+        }
+        .links {
+          gap: 8px;
+        }
+        .bag {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+        .cta {
+          flex-direction: column;
+          width: 100%;
+          gap: 10px;
+        }
+        .cta .btn,
+        .cta a.btn {
+          width: 100%;
+          text-align: center;
+        }
+        .tiles {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .tile {
+          min-height: auto;
+          padding: 18px;
+        }
+        .t-plain h3 {
+          font-size: 24px;
+        }
+        .t-cyan h3 {
+          font-size: 24px;
+        }
+        .stats-inner {
+          grid-template-columns: 1fr 1fr;
+          gap: 12px 6px;
+        }
+        .stat {
+          padding: 8px 4px;
+        }
+        .stat-n {
+          font-size: 26px;
+        }
+        .stat-l {
+          font-size: 12px;
+        }
+        .sechead {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+        .sechead .btn,
+        .sechead button {
+          width: 100%;
+          text-align: center;
+        }
+        .tcard {
+          flex: 0 0 88vw;
+          padding: 20px 16px;
+        }
+      }
+
+      /* Ultra-small mobile (360px and below) */
+      @media (max-width: 360px) {
+        .logo-text {
+          font-size: 18px;
+        }
+        .heroBody {
+          padding-left: 12px;
+          padding-right: 12px;
+        }
+        h1 {
+          font-size: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav class="top" id="topNav" aria-label="Main navigation">
+      <!-- =========================================================
        BRAND LOGO & NAME PROVISION
        • Replace SVG emblem inside .logo-mark (or swap with <img src="images/logo.svg">)
        • Change brand text inside .logo-text
        ========================================================= -->
-  <a class="logo in" style="--d:100" href="#top" aria-label="Keyhold – Home">
-    <span class="logo-mark" aria-hidden="true">
-      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="36" height="36" rx="9" fill="#A7C957"/>
-        <path d="M18 8L27 15V27C27 27.55 26.55 28 26 28H10C9.45 28 9 27.55 9 27V15L18 8Z" fill="#0B3D2E"/>
-        <circle cx="18" cy="18" r="3.2" fill="#A7C957"/>
-        <path d="M16.8 19.5L16 24H20L19.2 19.5C18.8 19.7 18.4 19.8 18 19.8C17.6 19.8 17.2 19.7 16.8 19.5Z" fill="#A7C957"/>
+      <a class="logo in" style="--d: 100" href="#top" aria-label="Greene App – Home">
+        <span class="logo-mark">
+          <img src="images/greene-app-icon-64.png" alt="Greene App">
+        </span>
+        <span class="logo-text"><b>GREENE</b>APP</span>
+      </a>
+      <div class="links in" style="--d: 200">
+        <a class="hide-m" href="#listings">Browse</a>
+        <a class="hide-m" href="#how">How it works</a>
+        <a class="hide-m" href="#faq">FAQ</a>
+        <button data-act="post">List a property</button>
+        <button class="bag" data-act="appts" aria-label="My visits">
+          Visits&nbsp;<span class="cnt" id="cnt">0</span>
+        </button>
+      </div>
+      <button
+        class="burger"
+        id="burger"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobNav"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- MOBILE NAV -->
+    <div class="mob-nav" id="mobNav" aria-hidden="true">
+      <!-- Brand Logo & Name (Mobile) -->
+      <a class="logo" href="#top" data-mob-close style="margin-bottom: 8px">
+        <span class="logo-mark" aria-hidden="true">
+          <img src="images/greene-app-icon-64.png" alt="Greene App">
+        </span>
+        <span class="logo-text"><b>GREENE</b>APP</span>
+      </a>
+      <div class="mob-div"></div>
+      <a href="#listings" data-mob-close>Browse Homes</a>
+      <div class="mob-div"></div>
+      <a href="#how" data-mob-close>How It Works</a>
+      <a href="#faq" data-mob-close>FAQ</a>
+      <div class="mob-div"></div>
+      <button data-act="post" data-mob-close>List a Property</button>
+      <button data-act="appts" data-mob-close>
+        My Visits&nbsp;<span class="mob-cnt" id="cntM">0</span>
+      </button>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero" id="top">
+      <div class="snow" aria-hidden="true"></div>
+      <svg
+        class="ridge"
+        viewBox="0 0 1440 300"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 230 L180 150 L300 205 L520 90 L700 200 L900 120 L1120 210 L1300 140 L1440 200 V300 H0Z"
+          fill="#0B3D2E"
+          opacity=".55"
+        />
+        <path
+          d="M0 270 L240 210 L460 255 L760 190 L1040 262 L1300 205 L1440 250 V300 H0Z"
+          fill="#0B3D2E"
+        />
       </svg>
-    </span>
-    <span class="logo-text"><b>KEY</b>HOLD</span>
-  </a>
-  <div class="links in" style="--d:200">
-    <a class="hide-m" href="#listings">Browse</a>
-    <a class="hide-m" href="#how">How it works</a>
-    <a class="hide-m" href="#faq">FAQ</a>
-    <button data-act="post">List a property</button>
-    <button class="bag" data-act="appts" aria-label="My visits">Visits&nbsp;<span class="cnt" id="cnt">0</span></button>
-  </div>
-  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobNav">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+      <div class="heroBody">
+        <div>
+          <p class="eyebrow in" style="--d: 350">
+            DISCOVER HOMES IN <span id="city-cycle">LAGOS</span>
+          </p>
+          <h1>
+            <span style="--d: 500">LIST.</span>
+            <span style="--d: 650">BOOK.</span>
+            <span class="out" style="--d: 800">INSPECT.</span>
+          </h1>
+          <p class="lede in" style="--d: 1000">
+            Owners and agents post a property in minutes. Buyers and renters
+            pick a time and meet them at the door — no commission, no stress.
+          </p>
+          <form
+            class="hero-search in"
+            style="--d: 1150"
+            id="hf"
+            role="search"
+            aria-label="Quick property search"
+          >
+            <input
+              type="search"
+              id="hq"
+              placeholder="Area, street or neighbourhood…"
+              aria-label="Search by area"
+            />
+            <select id="htype" aria-label="Property type">
+              <option value="">Any type</option>
+              <option>Apartment</option>
+              <option>House</option>
+              <option>Duplex</option>
+              <option>Land</option>
+            </select>
+            <button type="submit" class="btn">Search</button>
+          </form>
+          <div class="cta in" style="--d: 1300">
+            <a class="btn ghost" href="#listings">Browse all homes</a>
+            <button class="btn ghost" data-act="post">List a property</button>
+          </div>
+        </div>
+        <div class="tiles in" style="--d: 800">
+          <div class="tile t-cyan">
+            <div class="small">Featured this week</div>
+            <div>
+              <h3 id="featT">—</h3>
+              <div class="small" id="featP"></div>
+            </div>
+          </div>
+          <div class="tile t-plain">
+            <h3>OPEN<br />HOUSE<br />DAYS</h3>
+          </div>
+          <a class="tile t-glass" href="#listings" aria-label="Jump to listings"
+            ><span class="arrow">↗</span
+            ><span class="small"><b id="total">0</b> homes live</span></a
+          >
+          <div class="tile t-cream">
+            <div class="mini" id="featArt"></div>
+            <h3>Book a visit</h3>
+            <div class="small">Pick a slot, meet the owner</div>
+          </div>
+        </div>
+      </div>
+    </header>
 
-<!-- MOBILE NAV -->
-<div class="mob-nav" id="mobNav" aria-hidden="true">
-  <!-- Brand Logo & Name (Mobile) -->
-  <a class="logo" href="#top" data-mob-close style="margin-bottom:8px">
-    <span class="logo-mark" aria-hidden="true">
-      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="36" height="36" rx="9" fill="#A7C957"/>
-        <path d="M18 8L27 15V27C27 27.55 26.55 28 26 28H10C9.45 28 9 27.55 9 27V15L18 8Z" fill="#0B3D2E"/>
-        <circle cx="18" cy="18" r="3.2" fill="#A7C957"/>
-        <path d="M16.8 19.5L16 24H20L19.2 19.5C18.8 19.7 18.4 19.8 18 19.8C17.6 19.8 17.2 19.7 16.8 19.5Z" fill="#A7C957"/>
-      </svg>
-    </span>
-    <span class="logo-text"><b>KEY</b>HOLD</span>
-  </a>
-  <div class="mob-div"></div>
-  <a href="#listings" data-mob-close>Browse Homes</a>
-  <div class="mob-div"></div>
-  <a href="#how" data-mob-close>How It Works</a>
-  <a href="#faq" data-mob-close>FAQ</a>
-  <div class="mob-div"></div>
-  <button data-act="post" data-mob-close>List a Property</button>
-  <button data-act="appts" data-mob-close>My Visits&nbsp;<span class="mob-cnt" id="cntM">0</span></button>
-</div>
-
-<!-- HERO -->
-<header class="hero" id="top">
-  <div class="snow" aria-hidden="true"></div>
-  <svg class="ridge" viewBox="0 0 1440 300" preserveAspectRatio="none" aria-hidden="true"><path d="M0 230 L180 150 L300 205 L520 90 L700 200 L900 120 L1120 210 L1300 140 L1440 200 V300 H0Z" fill="#0B3D2E" opacity=".55"/><path d="M0 270 L240 210 L460 255 L760 190 L1040 262 L1300 205 L1440 250 V300 H0Z" fill="#0B3D2E"/></svg>
-  <div class="heroBody">
-    <div>
-      <p class="eyebrow in" style="--d:350">DISCOVER HOMES IN <span id="city-cycle">LAGOS</span></p>
-      <h1>
-        <span style="--d:500">LIST.</span>
-        <span style="--d:650">BOOK.</span>
-        <span class="out" style="--d:800">INSPECT.</span>
-      </h1>
-      <p class="lede in" style="--d:1000">Owners and agents post a property in minutes. Buyers and renters pick a time and meet them at the door — no commission, no stress.</p>
-      <form class="hero-search in" style="--d:1150" id="hf" role="search" aria-label="Quick property search">
-        <input type="search" id="hq" placeholder="Area, street or neighbourhood…" aria-label="Search by area">
-        <select id="htype" aria-label="Property type">
-          <option value="">Any type</option>
-          <option>Apartment</option>
-          <option>House</option>
-          <option>Duplex</option>
-          <option>Land</option>
-        </select>
-        <button type="submit" class="btn">Search</button>
-      </form>
-      <div class="cta in" style="--d:1300">
-        <a class="btn ghost" href="#listings">Browse all homes</a>
-        <button class="btn ghost" data-act="post">List a property</button>
+    <!-- STATS -->
+    <div class="stats-strip" aria-label="Platform highlights">
+      <div class="stats-inner">
+        <div class="stat reveal">
+          <div class="stat-n">1,200+</div>
+          <div class="stat-l">Homes listed</div>
+        </div>
+        <div class="stat reveal d1">
+          <div class="stat-n">480+</div>
+          <div class="stat-l">Visits booked</div>
+        </div>
+        <div class="stat reveal d2">
+          <div class="stat-n">38</div>
+          <div class="stat-l">Cities covered</div>
+        </div>
+        <div class="stat reveal d3">
+          <div class="stat-n">&#8358;0</div>
+          <div class="stat-l">Listing fee</div>
+        </div>
       </div>
     </div>
-    <div class="tiles in" style="--d:800">
-      <div class="tile t-cyan"><div class="small">Featured this week</div><div><h3 id="featT">—</h3><div class="small" id="featP"></div></div></div>
-      <div class="tile t-plain"><h3>OPEN<br>HOUSE<br>DAYS</h3></div>
-      <a class="tile t-glass" href="#listings" aria-label="Jump to listings"><span class="arrow">↗</span><span class="small"><b id="total">0</b> homes live</span></a>
-      <div class="tile t-cream"><div class="mini" id="featArt"></div><h3>Book a visit</h3><div class="small">Pick a slot, meet the owner</div></div>
-    </div>
-  </div>
-</header>
 
-<!-- STATS -->
-<div class="stats-strip" aria-label="Platform highlights">
-  <div class="stats-inner">
-    <div class="stat reveal"><div class="stat-n">1,200+</div><div class="stat-l">Homes listed</div></div>
-    <div class="stat reveal d1"><div class="stat-n">480+</div><div class="stat-l">Visits booked</div></div>
-    <div class="stat reveal d2"><div class="stat-n">38</div><div class="stat-l">Cities covered</div></div>
-    <div class="stat reveal d3"><div class="stat-n">&#8358;0</div><div class="stat-l">Listing fee</div></div>
-  </div>
-</div>
+    <main>
+      <!-- LISTINGS -->
+      <section id="listings" aria-labelledby="lh">
+        <div class="sechead reveal">
+          <h2 id="lh">Available now</h2>
+          <button class="btn dark" data-act="post">List a property</button>
+        </div>
+        <div class="filters reveal">
+          <input
+            class="search"
+            id="q"
+            type="search"
+            placeholder="Search by area or title"
+            aria-label="Search listings"
+          />
+          <span
+            id="types"
+            class="row"
+            style="flex-wrap: wrap"
+            role="group"
+            aria-label="Filter by type"
+          ></span>
+        </div>
+        <div class="grid" id="grid" aria-live="polite"></div>
+      </section>
 
-<main>
-  <!-- LISTINGS -->
-  <section id="listings" aria-labelledby="lh">
-    <div class="sechead reveal"><h2 id="lh">Available now</h2><button class="btn dark" data-act="post">List a property</button></div>
-    <div class="filters reveal">
-      <input class="search" id="q" type="search" placeholder="Search by area or title" aria-label="Search listings">
-      <span id="types" class="row" style="flex-wrap:wrap" role="group" aria-label="Filter by type"></span>
-    </div>
-    <div class="grid" id="grid" aria-live="polite"></div>
-  </section>
+      <!-- AGENTS -->
+      <section id="agents" class="section-gap" aria-labelledby="ah">
+        <div class="sechead reveal">
+          <h2 id="ah">Meet our agents</h2>
+          <a class="seclink" href="#listings">View all listings &#8594;</a>
+        </div>
+        <div class="agents-grid" id="agentsGrid"></div>
+      </section>
 
-  <!-- AGENTS -->
-  <section id="agents" class="section-gap" aria-labelledby="ah">
-    <div class="sechead reveal"><h2 id="ah">Meet our agents</h2><a class="seclink" href="#listings">View all listings &#8594;</a></div>
-    <div class="agents-grid" id="agentsGrid"></div>
-  </section>
+      <!-- HOW IT WORKS -->
+      <section id="how" class="section-gap" aria-labelledby="hwh">
+        <div class="sechead reveal"><h2 id="hwh">How Keyhold works</h2></div>
+        <div class="how-steps">
+          <div class="how-step reveal">
+            <div class="how-icon">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#fff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+            </div>
+            <div class="how-num">Step 1</div>
+            <h3>List your property</h3>
+            <p>
+              Add photos, price, location and the days you're free to show the
+              place. Live in under two minutes — for free.
+            </p>
+          </div>
+          <div class="how-step reveal d1">
+            <div class="how-icon">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#fff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+            </div>
+            <div class="how-num">Step 2</div>
+            <h3>Visitors book a slot</h3>
+            <p>
+              Interested buyers or renters choose an open date and time. Taken
+              slots disappear automatically.
+            </p>
+          </div>
+          <div class="how-step reveal d2">
+            <div class="how-icon">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#fff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                <line x1="11" y1="8" x2="11" y2="14" />
+                <line x1="8" y1="11" x2="14" y2="11" />
+              </svg>
+            </div>
+            <div class="how-num">Step 3</div>
+            <h3>Meet at the property</h3>
+            <p>
+              Confirm the request and meet at the property for the inspection.
+              No intermediaries, no hidden fees.
+            </p>
+          </div>
+        </div>
+      </section>
 
-  <!-- HOW IT WORKS -->
-  <section id="how" class="section-gap" aria-labelledby="hwh">
-    <div class="sechead reveal"><h2 id="hwh">How Keyhold works</h2></div>
-    <div class="how-steps">
-      <div class="how-step reveal">
-        <div class="how-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-        <div class="how-num">Step 1</div>
-        <h3>List your property</h3>
-        <p>Add photos, price, location and the days you're free to show the place. Live in under two minutes — for free.</p>
-      </div>
-      <div class="how-step reveal d1">
-        <div class="how-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-        <div class="how-num">Step 2</div>
-        <h3>Visitors book a slot</h3>
-        <p>Interested buyers or renters choose an open date and time. Taken slots disappear automatically.</p>
-      </div>
-      <div class="how-step reveal d2">
-        <div class="how-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
-        <div class="how-num">Step 3</div>
-        <h3>Meet at the property</h3>
-        <p>Confirm the request and meet at the property for the inspection. No intermediaries, no hidden fees.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section id="testimonials" class="section-gap" aria-labelledby="tsh">
-    <div class="sechead reveal"><h2 id="tsh">What people say</h2></div>
-    <div class="tcard-track" id="ttrack" role="list"></div>
-    <div class="tcarousel-ctrl">
-      <button class="tc-btn" id="tprev" aria-label="Previous testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg></button>
-      <div class="tc-dots" id="tdots" role="group" aria-label="Testimonial indicators"></div>
-      <button class="tc-btn" id="tnext" aria-label="Next testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="section-gap" aria-labelledby="faqh">
-    <div class="sechead reveal"><h2 id="faqh">Frequently asked questions</h2></div>
-    <div class="faq-list reveal">
-      <details class="faq-item"><summary>How does Keyhold work?</summary><div class="faq-body">Keyhold connects property owners and agents with buyers and renters directly. Owners post a listing with available inspection days; visitors book a convenient time slot. Everyone meets at the property — no middlemen required.</div></details>
-      <details class="faq-item"><summary>Is it free to list a property?</summary><div class="faq-body">Yes, completely free. No listing fees, no commission, no subscription. Keyhold is a front-end demo — in a live product, listing will remain free for private owners.</div></details>
-      <details class="faq-item"><summary>Can I book multiple visits at once?</summary><div class="faq-body">Yes. You can book visits to multiple properties and track all upcoming and past visits from the "My Visits" panel accessible via the navigation bar.</div></details>
-      <details class="faq-item"><summary>What if the owner or agent declines my visit?</summary><div class="faq-body">If a visit is declined, the slot is released so you can book a new time. We recommend contacting the agent directly using the phone number shown on the listing. In a live product, you'd receive an instant notification for every status change.</div></details>
-      <details class="faq-item"><summary>Is Keyhold available outside Lagos?</summary><div class="faq-body">This demo includes listings across Lagos, Abuja, Port Harcourt and Enugu. The full product will cover all major Nigerian cities, with plans to expand across West Africa.</div></details>
-      <details class="faq-item"><summary>How do I contact the agent directly?</summary><div class="faq-body">Every listing shows the agent's name and phone number. After requesting a visit, you can reach them directly by phone or WhatsApp. All bookings are requests — the agent confirms before the visit is official.</div></details>
-    </div>
-  </section>
-
-  <!-- BLOG -->
-  <section id="blog" class="section-gap" aria-labelledby="blgh">
-    <div class="sechead reveal"><h2 id="blgh">From the blog</h2><a class="seclink" href="#blog">View all posts &#8594;</a></div>
-    <div class="blog-grid" id="blogGrid"></div>
-  </section>
-</main>
-
-<!-- NEWSLETTER -->
-<section class="newsletter" aria-labelledby="nlh">
-  <div class="newsletter-inner reveal">
-    <h2 id="nlh">Stay in the loop</h2>
-    <p>New listings, market insights and inspection tips — delivered weekly. No spam, ever.</p>
-    <form class="newsletter-form" id="nlForm" novalidate>
-      <input type="email" placeholder="your@email.com" aria-label="Your email address" required>
-      <button type="submit" class="btn">Subscribe free</button>
-    </form>
-    <div class="social-row" aria-label="Follow us on social media">
-      <a href="#" class="social-btn" aria-label="Follow on X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-      <a href="#" class="social-btn" aria-label="Follow on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-      <a href="#" class="social-btn" aria-label="Follow on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-      <a href="#" class="social-btn" aria-label="Follow on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="foot-inner">
-    <div class="foot-grid">
-      <div>
-        <!-- BRAND LOGO & NAME PROVISION (Footer) -->
-        <a class="foot-logo" href="#top" aria-label="Keyhold – Home">
-          <span class="logo-mark" aria-hidden="true">
-            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="36" height="36" rx="9" fill="#A7C957"/>
-              <path d="M18 8L27 15V27C27 27.55 26.55 28 26 28H10C9.45 28 9 27.55 9 27V15L18 8Z" fill="#0B3D2E"/>
-              <circle cx="18" cy="18" r="3.2" fill="#A7C957"/>
-              <path d="M16.8 19.5L16 24H20L19.2 19.5C18.8 19.7 18.4 19.8 18 19.8C17.6 19.8 17.2 19.7 16.8 19.5Z" fill="#A7C957"/>
+      <!-- TESTIMONIALS -->
+      <section id="testimonials" class="section-gap" aria-labelledby="tsh">
+        <div class="sechead reveal"><h2 id="tsh">What people say</h2></div>
+        <div class="tcard-track" id="ttrack" role="list"></div>
+        <div class="tcarousel-ctrl">
+          <button class="tc-btn" id="tprev" aria-label="Previous testimonial">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="15 18 9 12 15 6" />
             </svg>
-          </span>
-          <span class="logo-text"><b>KEY</b>HOLD</span>
-        </a>
-        <p>Homes you can visit this week. No fees, no commission — just people meeting at properties across Nigeria.</p>
+          </button>
+          <div
+            class="tc-dots"
+            id="tdots"
+            role="group"
+            aria-label="Testimonial indicators"
+          ></div>
+          <button class="tc-btn" id="tnext" aria-label="Next testimonial">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="section-gap" aria-labelledby="faqh">
+        <div class="sechead reveal">
+          <h2 id="faqh">Frequently asked questions</h2>
+        </div>
+        <div class="faq-list reveal">
+          <details class="faq-item">
+            <summary>How does Keyhold work?</summary>
+            <div class="faq-body">
+              Keyhold connects property owners and agents with buyers and
+              renters directly. Owners post a listing with available inspection
+              days; visitors book a convenient time slot. Everyone meets at the
+              property — no middlemen required.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Is it free to list a property?</summary>
+            <div class="faq-body">
+              Yes, completely free. No listing fees, no commission, no
+              subscription. Keyhold is a front-end demo — in a live product,
+              listing will remain free for private owners.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Can I book multiple visits at once?</summary>
+            <div class="faq-body">
+              Yes. You can book visits to multiple properties and track all
+              upcoming and past visits from the "My Visits" panel accessible via
+              the navigation bar.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>What if the owner or agent declines my visit?</summary>
+            <div class="faq-body">
+              If a visit is declined, the slot is released so you can book a new
+              time. We recommend contacting the agent directly using the phone
+              number shown on the listing. In a live product, you'd receive an
+              instant notification for every status change.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Is Keyhold available outside Lagos?</summary>
+            <div class="faq-body">
+              This demo includes listings across Lagos, Abuja, Port Harcourt and
+              Enugu. The full product will cover all major Nigerian cities, with
+              plans to expand across West Africa.
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How do I contact the agent directly?</summary>
+            <div class="faq-body">
+              Every listing shows the agent's name and phone number. After
+              requesting a visit, you can reach them directly by phone or
+              WhatsApp. All bookings are requests — the agent confirms before
+              the visit is official.
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- BLOG -->
+      <section id="blog" class="section-gap" aria-labelledby="blgh">
+        <div class="sechead reveal">
+          <h2 id="blgh">From the blog</h2>
+          <a class="seclink" href="#blog">View all posts &#8594;</a>
+        </div>
+        <div class="blog-grid" id="blogGrid"></div>
+      </section>
+    </main>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter" aria-labelledby="nlh">
+      <div class="newsletter-inner reveal">
+        <h2 id="nlh">Stay in the loop</h2>
+        <p>
+          New listings, market insights and inspection tips — delivered weekly.
+          No spam, ever.
+        </p>
+        <form class="newsletter-form" id="nlForm" novalidate>
+          <input
+            type="email"
+            placeholder="your@email.com"
+            aria-label="Your email address"
+            required
+          />
+          <button type="submit" class="btn">Subscribe free</button>
+        </form>
+        <div class="social-row" aria-label="Follow us on social media">
+          <a href="#" class="social-btn" aria-label="Follow on X / Twitter"
+            ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              /></svg
+          ></a>
+          <a href="#" class="social-btn" aria-label="Follow on Instagram"
+            ><svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg
+          ></a>
+          <a href="#" class="social-btn" aria-label="Follow on LinkedIn"
+            ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              /></svg
+          ></a>
+          <a href="#" class="social-btn" aria-label="Follow on Facebook"
+            ><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+              /></svg
+          ></a>
+        </div>
       </div>
-      <div>
-        <p class="foot-h">Quick Links</p>
-        <ul class="foot-links">
-          <li><a href="#listings">Browse homes</a></li>
-          <li><a href="#how">How it works</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><button data-act="post">List a property</button></li>
-          <li><button data-act="appts">My visits</button></li>
-        </ul>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="foot-inner">
+        <div class="foot-grid">
+          <div>
+            <!-- BRAND LOGO & NAME PROVISION (Footer) -->
+            <a class="foot-logo" href="#top" aria-label="Greene App – Home">
+              <span class="logo-mark" aria-hidden="true">
+                <img src="images/greene-app-icon-64.png" alt="Greene App">
+              </span>
+              <span class="logo-text"><b>GREENE</b>APP</span>
+            </a>
+            <p>
+              Homes you can visit this week. No fees, no commission — just
+              people meeting at properties across Nigeria.
+            </p>
+          </div>
+          <div>
+            <p class="foot-h">Quick Links</p>
+            <ul class="foot-links">
+              <li><a href="#listings">Browse homes</a></li>
+              <li><a href="#how">How it works</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><button data-act="post">List a property</button></li>
+              <li><button data-act="appts">My visits</button></li>
+            </ul>
+          </div>
+          <div>
+            <p class="foot-h">Property Types</p>
+            <ul class="foot-links">
+              <li>
+                <a href="#listings" data-foot-type="Apartment">Apartments</a>
+              </li>
+              <li><a href="#listings" data-foot-type="House">Houses</a></li>
+              <li><a href="#listings" data-foot-type="Duplex">Duplexes</a></li>
+              <li>
+                <a href="#listings" data-foot-type="Land">Land &amp; Plots</a>
+              </li>
+            </ul>
+          </div>
+          <div class="foot-contact">
+            <p class="foot-h">Get in touch</p>
+            <p>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+                /></svg
+              >0800 KEYHOLD (539 4653)
+            </p>
+            <p>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                />
+                <polyline points="22,6 12,13 2,6" /></svg
+              >hello@keyhold.ng
+            </p>
+            <p>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" /></svg
+              >Lagos · Abuja · Port Harcourt · Enugu
+            </p>
+          </div>
+        </div>
+        <div class="foot-bar">
+          Keyhold is a front-end demo &mdash; all data is stored locally in your
+          browser. &nbsp;&middot;&nbsp; &copy; 2026 Keyhold Ltd
+        </div>
       </div>
-      <div>
-        <p class="foot-h">Property Types</p>
-        <ul class="foot-links">
-          <li><a href="#listings" data-foot-type="Apartment">Apartments</a></li>
-          <li><a href="#listings" data-foot-type="House">Houses</a></li>
-          <li><a href="#listings" data-foot-type="Duplex">Duplexes</a></li>
-          <li><a href="#listings" data-foot-type="Land">Land &amp; Plots</a></li>
-        </ul>
+    </footer>
+
+    <!-- DIALOG -->
+    <dialog id="dlg" aria-labelledby="dt">
+      <div class="dhead">
+        <h2 id="dt"></h2>
+        <button class="x" data-close aria-label="Close dialog">&#10005;</button>
       </div>
-      <div class="foot-contact">
-        <p class="foot-h">Get in touch</p>
-        <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>0800 KEYHOLD (539 4653)</p>
-        <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>hello@keyhold.ng</p>
-        <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Lagos · Abuja · Port Harcourt · Enugu</p>
-      </div>
-    </div>
-    <div class="foot-bar">Keyhold is a front-end demo &mdash; all data is stored locally in your browser. &nbsp;&middot;&nbsp; &copy; 2026 Keyhold Ltd</div>
-  </div>
-</footer>
+      <div class="dbody" id="db"></div>
+    </dialog>
 
-<!-- DIALOG -->
-<dialog id="dlg" aria-labelledby="dt">
-  <div class="dhead"><h2 id="dt"></h2><button class="x" data-close aria-label="Close dialog">&#10005;</button></div>
-  <div class="dbody" id="db"></div>
-</dialog>
+    <script>
+      /* ── utils ── */
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => [...document.querySelectorAll(s)];
+      const esc = (s) =>
+        String(s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const naira = (n) =>
+        new Intl.NumberFormat("en-NG", {
+          style: "currency",
+          currency: "NGN",
+          maximumFractionDigits: 0,
+        }).format(n);
 
-<script>
-/* ── utils ── */
-const $  = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
-const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const naira = n => new Intl.NumberFormat('en-NG',{style:'currency',currency:'NGN',maximumFractionDigits:0}).format(n);
+      /* ── constants ── */
+      const SLOTS = ["09:00", "10:30", "12:00", "14:00", "15:30", "17:00"];
+      const DAYN = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const KEY = "keyhold_demo_v2";
+      const CITIES = ["LAGOS", "ABUJA", "PORT HARCOURT", "ENUGU"];
 
-/* ── constants ── */
-const SLOTS  = ['09:00','10:30','12:00','14:00','15:30','17:00'];
-const DAYN   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const KEY    = 'keyhold_demo_v2';
-const CITIES = ['LAGOS','ABUJA','PORT HARCOURT','ENUGU'];
+      /* ── state ── */
+      let S = { listings: [], bookings: [] };
+      let filterType = "All",
+        query = "",
+        sel = { date: null, time: null },
+        cur = null,
+        upImg = null;
 
-/* ── state ── */
-let S = {listings:[],bookings:[]};
-let filterType='All',query='',sel={date:null,time:null},cur=null,upImg=null;
+      /* ── date helpers ── */
+      function addDays(n) {
+        const d = new Date();
+        d.setHours(12, 0, 0, 0);
+        d.setDate(d.getDate() + n);
+        return d;
+      }
+      const ds = (d) =>
+        `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      const fmtD = (s) =>
+        new Date(s + "T12:00:00").toLocaleDateString("en-GB", {
+          weekday: "short",
+          day: "numeric",
+          month: "short",
+        });
+      function openDays(l) {
+        const o = [];
+        for (let i = 1; i <= 21 && o.length < 6; i++) {
+          const d = addDays(i);
+          if (l.days.includes(d.getDay())) o.push(ds(d));
+        }
+        return o;
+      }
+      const taken = (id, d, t) =>
+        S.bookings.some(
+          (b) =>
+            b.listingId === id &&
+            b.date === d &&
+            b.time === t &&
+            b.status !== "declined",
+        );
 
-/* ── date helpers ── */
-function addDays(n){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+n);return d}
-const ds   = d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-const fmtD = s=>new Date(s+'T12:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
-function openDays(l){const o=[];for(let i=1;i<=21&&o.length<6;i++){const d=addDays(i);if(l.days.includes(d.getDay()))o.push(ds(d))}return o}
-const taken=(id,d,t)=>S.bookings.some(b=>b.listingId===id&&b.date===d&&b.time===t&&b.status!=='declined');
+      /* ── SVG art ── */
+      function art(l) {
+        if (l.img) return `<img src="${l.img}" alt="Photo of ${esc(l.title)}">`;
+        const h = l.hue,
+          r = l.id % 3;
+        const w =
+          l.type === "Land"
+            ? ""
+            : `<rect x="150" y="${90 - r * 8}" width="300" height="${110 + r * 8}" fill="hsl(${h},25%,96%)"/><rect x="150" y="${82 - r * 8}" width="300" height="10" fill="hsl(${h},35%,30%)"/>${[0, 1, 2, 3].map((i) => `<rect x="${175 + i * 68}" y="${115 - r * 8}" width="40" height="50" fill="hsl(${h},70%,72%)"/>`).join("")}<rect x="285" y="165" width="30" height="35" fill="hsl(${h},35%,30%)"/>`;
+        return `<svg viewBox="0 0 600 330" role="img" aria-label="Illustration of ${esc(l.title)}"><defs><linearGradient id="g${l.id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(${h},70%,80%)"/><stop offset="1" stop-color="hsl(${h},60%,95%)"/></linearGradient></defs><rect width="600" height="330" fill="url(#g${l.id})"/><path d="M0 200 L120 150 L240 190 L400 120 L600 190 V330 H0Z" fill="hsl(${h},40%,88%)"/><rect y="200" width="600" height="130" fill="hsl(${h},30%,97%)"/>${w}</svg>`;
+      }
 
-/* ── SVG art ── */
-function art(l){
-  if(l.img)return`<img src="${l.img}" alt="Photo of ${esc(l.title)}">`;
-  const h=l.hue,r=l.id%3;
-  const w=l.type==='Land'?'':`<rect x="150" y="${90-r*8}" width="300" height="${110+r*8}" fill="hsl(${h},25%,96%)"/><rect x="150" y="${82-r*8}" width="300" height="10" fill="hsl(${h},35%,30%)"/>${[0,1,2,3].map(i=>`<rect x="${175+i*68}" y="${115-r*8}" width="40" height="50" fill="hsl(${h},70%,72%)"/>`).join('')}<rect x="285" y="165" width="30" height="35" fill="hsl(${h},35%,30%)"/>`;
-  return`<svg viewBox="0 0 600 330" role="img" aria-label="Illustration of ${esc(l.title)}"><defs><linearGradient id="g${l.id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(${h},70%,80%)"/><stop offset="1" stop-color="hsl(${h},60%,95%)"/></linearGradient></defs><rect width="600" height="330" fill="url(#g${l.id})"/><path d="M0 200 L120 150 L240 190 L400 120 L600 190 V330 H0Z" fill="hsl(${h},40%,88%)"/><rect y="200" width="600" height="130" fill="hsl(${h},30%,97%)"/>${w}</svg>`;
-}
+      /* ── load / save ── */
+      function load() {
+        try {
+          const r = localStorage.getItem(KEY);
+          if (r) {
+            S = JSON.parse(r);
+            S.listings.forEach((l) => {
+              if (!l.img && l.id >= 1 && l.id <= 12)
+                l.img = `images/prop-${l.id}.jpg`;
+            });
+            return;
+          }
+        } catch (e) {}
+        S.listings = [
+          {
+            id: 1,
+            title: "Glasshouse duplex with sea view",
+            type: "Duplex",
+            area: "Lekki Phase 1, Lagos",
+            price: 185000000,
+            beds: 4,
+            baths: 5,
+            sqm: 320,
+            hue: 200,
+            img: "images/prop-1.jpg",
+            desc: "Corner duplex with floor-to-ceiling glazing, a boys\u2019 quarters and a covered terrace. 24-hour power backup and gated parking for three cars.",
+            agent: "You (demo owner)",
+            phone: "0803 000 0000",
+            days: [1, 2, 3, 4, 5, 6],
+            mine: true,
+            featured: true,
+          },
+          {
+            id: 2,
+            title: "Bright two-bedroom apartment",
+            type: "Apartment",
+            area: "Yaba, Lagos",
+            price: 4500000,
+            beds: 2,
+            baths: 2,
+            sqm: 98,
+            hue: 170,
+            img: "images/prop-2.jpg",
+            desc: "Newly tiled flat on the second floor, ten minutes from the tech hub. Prepaid meter and borehole water.",
+            agent: "Amaka Obi",
+            phone: "0805 111 2233",
+            days: [1, 2, 3, 4, 5],
+          },
+          {
+            id: 3,
+            title: "Quiet family bungalow",
+            type: "House",
+            area: "Ikeja GRA, Lagos",
+            price: 95000000,
+            beds: 3,
+            baths: 3,
+            sqm: 240,
+            hue: 30,
+            img: "images/prop-3.jpg",
+            desc: "Single-storey home on a 600 sqm plot with a mature garden, a guest chalet and a generous driveway.",
+            agent: "Tunde Bello",
+            phone: "0802 444 5566",
+            days: [2, 4, 6],
+          },
+          {
+            id: 4,
+            title: "Waterfront serviced studio",
+            type: "Apartment",
+            area: "Victoria Island, Lagos",
+            price: 7800000,
+            beds: 1,
+            baths: 1,
+            sqm: 55,
+            hue: 215,
+            img: "images/prop-4.jpg",
+            desc: "Furnished studio with gym, pool and concierge in the building. Minimum lease of one year.",
+            agent: "Ngozi Eze",
+            phone: "0809 777 8899",
+            days: [1, 3, 5, 6],
+          },
+          {
+            id: 5,
+            title: "Corner plot, ready to build",
+            type: "Land",
+            area: "Ajah, Lagos",
+            price: 42000000,
+            beds: 0,
+            baths: 0,
+            sqm: 648,
+            hue: 100,
+            img: "images/prop-5.jpg",
+            desc: "Dry, fenced corner plot with a registered survey and C of O. Close to the expressway and a new estate gate.",
+            agent: "Ibrahim Sani",
+            phone: "0807 222 3344",
+            days: [0, 6],
+          },
+          {
+            id: 6,
+            title: "Modern terrace near the lagoon",
+            type: "House",
+            area: "Ikoyi, Lagos",
+            price: 210000000,
+            beds: 4,
+            baths: 4,
+            sqm: 360,
+            hue: 260,
+            img: "images/prop-6.jpg",
+            desc: "Four-bedroom terrace with a roof deck, smart-home wiring and a dedicated study. Walk to the waterfront.",
+            agent: "Folake Adeyemi",
+            phone: "0806 333 4455",
+            days: [1, 2, 3, 4, 5, 6],
+          },
+          {
+            id: 7,
+            title: "Executive penthouse suite",
+            type: "Apartment",
+            area: "Maitama, Abuja",
+            price: 320000000,
+            beds: 5,
+            baths: 6,
+            sqm: 480,
+            hue: 240,
+            img: "images/prop-7.jpg",
+            desc: "Panoramic city views from a private rooftop terrace. Fully serviced with 24/7 power, smart home automation and a dedicated concierge floor.",
+            agent: "Fatima Aliyu",
+            phone: "0803 888 7766",
+            days: [1, 2, 3, 4, 5],
+          },
+          {
+            id: 8,
+            title: "Cozy two-bedroom flat",
+            type: "Apartment",
+            area: "Wuse 2, Abuja",
+            price: 9500000,
+            beds: 2,
+            baths: 2,
+            sqm: 110,
+            hue: 185,
+            img: "images/prop-8.jpg",
+            desc: "Second-floor flat in a serene compound with parking, prepaid meter and clean water supply. Close to major banks and supermarkets.",
+            agent: "Fatima Aliyu",
+            phone: "0803 888 7766",
+            days: [1, 3, 5],
+          },
+          {
+            id: 9,
+            title: "Riverside cottage with garden",
+            type: "House",
+            area: "GRA Phase 2, Port Harcourt",
+            price: 78000000,
+            beds: 3,
+            baths: 3,
+            sqm: 220,
+            hue: 140,
+            img: "images/prop-9.jpg",
+            desc: "Charming bungalow with a generous compound, fruit trees, and a tiled patio overlooking a lush garden. Very quiet neighbourhood.",
+            agent: "Emeka Nwosu",
+            phone: "0805 999 1122",
+            days: [2, 4, 6],
+          },
+          {
+            id: 10,
+            title: "Commercial open-plan workspace",
+            type: "House",
+            area: "Trans-Amadi, Port Harcourt",
+            price: 55000000,
+            beds: 0,
+            baths: 2,
+            sqm: 400,
+            hue: 50,
+            img: "images/prop-10.jpg",
+            desc: "Large open space suitable for offices, showroom or studio. High ceilings, 3-phase power and ample car park.",
+            agent: "Emeka Nwosu",
+            phone: "0805 999 1122",
+            days: [1, 2, 3, 4, 5],
+          },
+          {
+            id: 11,
+            title: "Heritage townhouse in New Haven",
+            type: "House",
+            area: "New Haven, Enugu",
+            price: 62000000,
+            beds: 4,
+            baths: 3,
+            sqm: 280,
+            hue: 355,
+            img: "images/prop-11.jpg",
+            desc: "Character-filled two-storey home with a wrap-around verandah, solid hardwood floors and a large private compound in one of Enugu's finest neighbourhoods.",
+            agent: "Adaeze Obi",
+            phone: "0801 234 5678",
+            days: [1, 2, 4, 5],
+          },
+          {
+            id: 12,
+            title: "Spacious plot, Independence Layout",
+            type: "Land",
+            area: "Independence Layout, Enugu",
+            price: 28000000,
+            beds: 0,
+            baths: 0,
+            sqm: 900,
+            hue: 75,
+            img: "images/prop-12.jpg",
+            desc: "Level 900 sqm plot in Independence Layout. Fully fenced, government allocation with survey and receipts. Ideal for residential or mixed-use development.",
+            agent: "Adaeze Obi",
+            phone: "0801 234 5678",
+            days: [0, 6],
+          },
+        ];
+        S.bookings = [
+          {
+            id: 1,
+            listingId: 1,
+            name: "Tola Adewale",
+            phone: "0701 555 0101",
+            date: ds(addDays(2)),
+            time: "10:30",
+            status: "pending",
+            mine: false,
+          },
+        ];
+        save();
+      }
+      function save() {
+        try {
+          localStorage.setItem(KEY, JSON.stringify(S));
+        } catch (e) {}
+      }
 
-/* ── load / save ── */
-function load(){
-  try{
-    const r=localStorage.getItem(KEY);
-    if(r){
-      S=JSON.parse(r);
-      S.listings.forEach(l=>{
-        if(!l.img && l.id>=1 && l.id<=12) l.img=`images/prop-${l.id}.jpg`;
-      });
-      return;
-    }
-  }catch(e){}
-  S.listings=[
-    {id:1,title:'Glasshouse duplex with sea view',type:'Duplex',area:'Lekki Phase 1, Lagos',price:185000000,beds:4,baths:5,sqm:320,hue:200,img:'images/prop-1.jpg',desc:'Corner duplex with floor-to-ceiling glazing, a boys\u2019 quarters and a covered terrace. 24-hour power backup and gated parking for three cars.',agent:'You (demo owner)',phone:'0803 000 0000',days:[1,2,3,4,5,6],mine:true,featured:true},
-    {id:2,title:'Bright two-bedroom apartment',type:'Apartment',area:'Yaba, Lagos',price:4500000,beds:2,baths:2,sqm:98,hue:170,img:'images/prop-2.jpg',desc:'Newly tiled flat on the second floor, ten minutes from the tech hub. Prepaid meter and borehole water.',agent:'Amaka Obi',phone:'0805 111 2233',days:[1,2,3,4,5]},
-    {id:3,title:'Quiet family bungalow',type:'House',area:'Ikeja GRA, Lagos',price:95000000,beds:3,baths:3,sqm:240,hue:30,img:'images/prop-3.jpg',desc:'Single-storey home on a 600 sqm plot with a mature garden, a guest chalet and a generous driveway.',agent:'Tunde Bello',phone:'0802 444 5566',days:[2,4,6]},
-    {id:4,title:'Waterfront serviced studio',type:'Apartment',area:'Victoria Island, Lagos',price:7800000,beds:1,baths:1,sqm:55,hue:215,img:'images/prop-4.jpg',desc:'Furnished studio with gym, pool and concierge in the building. Minimum lease of one year.',agent:'Ngozi Eze',phone:'0809 777 8899',days:[1,3,5,6]},
-    {id:5,title:'Corner plot, ready to build',type:'Land',area:'Ajah, Lagos',price:42000000,beds:0,baths:0,sqm:648,hue:100,img:'images/prop-5.jpg',desc:'Dry, fenced corner plot with a registered survey and C of O. Close to the expressway and a new estate gate.',agent:'Ibrahim Sani',phone:'0807 222 3344',days:[0,6]},
-    {id:6,title:'Modern terrace near the lagoon',type:'House',area:'Ikoyi, Lagos',price:210000000,beds:4,baths:4,sqm:360,hue:260,img:'images/prop-6.jpg',desc:'Four-bedroom terrace with a roof deck, smart-home wiring and a dedicated study. Walk to the waterfront.',agent:'Folake Adeyemi',phone:'0806 333 4455',days:[1,2,3,4,5,6]},
-    {id:7,title:'Executive penthouse suite',type:'Apartment',area:'Maitama, Abuja',price:320000000,beds:5,baths:6,sqm:480,hue:240,img:'images/prop-7.jpg',desc:'Panoramic city views from a private rooftop terrace. Fully serviced with 24/7 power, smart home automation and a dedicated concierge floor.',agent:'Fatima Aliyu',phone:'0803 888 7766',days:[1,2,3,4,5]},
-    {id:8,title:'Cozy two-bedroom flat',type:'Apartment',area:'Wuse 2, Abuja',price:9500000,beds:2,baths:2,sqm:110,hue:185,img:'images/prop-8.jpg',desc:'Second-floor flat in a serene compound with parking, prepaid meter and clean water supply. Close to major banks and supermarkets.',agent:'Fatima Aliyu',phone:'0803 888 7766',days:[1,3,5]},
-    {id:9,title:'Riverside cottage with garden',type:'House',area:'GRA Phase 2, Port Harcourt',price:78000000,beds:3,baths:3,sqm:220,hue:140,img:'images/prop-9.jpg',desc:'Charming bungalow with a generous compound, fruit trees, and a tiled patio overlooking a lush garden. Very quiet neighbourhood.',agent:'Emeka Nwosu',phone:'0805 999 1122',days:[2,4,6]},
-    {id:10,title:'Commercial open-plan workspace',type:'House',area:'Trans-Amadi, Port Harcourt',price:55000000,beds:0,baths:2,sqm:400,hue:50,img:'images/prop-10.jpg',desc:'Large open space suitable for offices, showroom or studio. High ceilings, 3-phase power and ample car park.',agent:'Emeka Nwosu',phone:'0805 999 1122',days:[1,2,3,4,5]},
-    {id:11,title:'Heritage townhouse in New Haven',type:'House',area:'New Haven, Enugu',price:62000000,beds:4,baths:3,sqm:280,hue:355,img:'images/prop-11.jpg',desc:'Character-filled two-storey home with a wrap-around verandah, solid hardwood floors and a large private compound in one of Enugu\'s finest neighbourhoods.',agent:'Adaeze Obi',phone:'0801 234 5678',days:[1,2,4,5]},
-    {id:12,title:'Spacious plot, Independence Layout',type:'Land',area:'Independence Layout, Enugu',price:28000000,beds:0,baths:0,sqm:900,hue:75,img:'images/prop-12.jpg',desc:'Level 900 sqm plot in Independence Layout. Fully fenced, government allocation with survey and receipts. Ideal for residential or mixed-use development.',agent:'Adaeze Obi',phone:'0801 234 5678',days:[0,6]},
-  ];
-  S.bookings=[{id:1,listingId:1,name:'Tola Adewale',phone:'0701 555 0101',date:ds(addDays(2)),time:'10:30',status:'pending',mine:false}];
-  save();
-}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-
-/* ── render listings ── */
-function render(){
-  const types=['All','Apartment','House','Duplex','Land'];
-  $('#types').innerHTML=types.map(t=>`<button class="chip" aria-pressed="${t===filterType}" data-type="${t}">${t}</button>`).join('');
-  const q=query.toLowerCase();
-  const list=S.listings.filter(l=>(filterType==='All'||l.type===filterType)&&(l.title+' '+l.area).toLowerCase().includes(q));
-  $('#grid').innerHTML=list.length?list.map(l=>`
+      /* ── render listings ── */
+      function render() {
+        const types = ["All", "Apartment", "House", "Duplex", "Land"];
+        $("#types").innerHTML = types
+          .map(
+            (t) =>
+              `<button class="chip" aria-pressed="${t === filterType}" data-type="${t}">${t}</button>`,
+          )
+          .join("");
+        const q = query.toLowerCase();
+        const list = S.listings.filter(
+          (l) =>
+            (filterType === "All" || l.type === filterType) &&
+            (l.title + " " + l.area).toLowerCase().includes(q),
+        );
+        $("#grid").innerHTML = list.length
+          ? list
+              .map(
+                (l) => `
     <article class="card">
       <div class="pic">${art(l)}
         <span class="tag">${l.type}</span>
-        ${l.featured?'<span class="tag feat" style="left:auto;right:12px">Featured</span>':''}
-        ${l.mine?'<span class="tag mine">Your listing</span>':''}
+        ${l.featured ? '<span class="tag feat" style="left:auto;right:12px">Featured</span>' : ""}
+        ${l.mine ? '<span class="tag mine">Your listing</span>' : ""}
       </div>
       <div class="cbody">
         <div class="price">${naira(l.price)}</div>
         <h3>${esc(l.title)}</h3>
         <div class="meta">${esc(l.area)}</div>
-        <div class="meta">${l.beds?l.beds+' bed &middot; '+l.baths+' bath &middot; ':''}${l.sqm} sqm</div>
+        <div class="meta">${l.beds ? l.beds + " bed &middot; " + l.baths + " bath &middot; " : ""}${l.sqm} sqm</div>
         <button class="btn dark" data-view="${l.id}">View &amp; book</button>
       </div>
-    </article>`).join(''):'<div class="empty">No homes match that search. Clear the filter or list a property of your own.</div>';
+    </article>`,
+              )
+              .join("")
+          : '<div class="empty">No homes match that search. Clear the filter or list a property of your own.</div>';
 
-  const bc=S.bookings.filter(b=>b.status!=='declined').length;
-  $('#total').textContent=S.listings.length;
-  $('#cnt').textContent=bc;
-  const cm=$('#cntM');if(cm)cm.textContent=bc;
-  const f=S.listings[0];
-  if(f){$('#featT').textContent=f.title;$('#featP').textContent=naira(f.price)+' \u00b7 '+f.area;$('#featArt').innerHTML=art(f)}
-}
+        const bc = S.bookings.filter((b) => b.status !== "declined").length;
+        $("#total").textContent = S.listings.length;
+        $("#cnt").textContent = bc;
+        const cm = $("#cntM");
+        if (cm) cm.textContent = bc;
+        const f = S.listings[0];
+        if (f) {
+          $("#featT").textContent = f.title;
+          $("#featP").textContent = naira(f.price) + " \u00b7 " + f.area;
+          $("#featArt").innerHTML = art(f);
+        }
+      }
 
-/* ── agents ── */
-const AGENTS=[
-  {name:'Amaka Obi',city:'Lagos',specialty:'Apartments & Residential',initials:'AO',hue:170,count:28,img:'images/agent-1.jpg'},
-  {name:'Fatima Aliyu',city:'Abuja',specialty:'Luxury & Commercial',initials:'FA',hue:240,count:15,img:'images/agent-2.jpg'},
-  {name:'Emeka Nwosu',city:'Port Harcourt',specialty:'Residential & Industrial',initials:'EN',hue:140,count:19,img:'images/agent-3.jpg'},
-  {name:'Adaeze Obi',city:'Enugu',specialty:'Land & Heritage Homes',initials:'AO',hue:355,count:12,img:'images/agent-4.jpg'},
-];
-function renderAgents(){
-  $('#agentsGrid').innerHTML=AGENTS.map((a,i)=>`
-    <div class="agent-card reveal${i?' d'+Math.min(i,3):''}">
+      /* ── agents ── */
+      const AGENTS = [
+        {
+          name: "Amaka Obi",
+          city: "Lagos",
+          specialty: "Apartments & Residential",
+          initials: "AO",
+          hue: 170,
+          count: 28,
+          img: "images/agent-1.jpg",
+        },
+        {
+          name: "Fatima Aliyu",
+          city: "Abuja",
+          specialty: "Luxury & Commercial",
+          initials: "FA",
+          hue: 240,
+          count: 15,
+          img: "images/agent-2.jpg",
+        },
+        {
+          name: "Emeka Nwosu",
+          city: "Port Harcourt",
+          specialty: "Residential & Industrial",
+          initials: "EN",
+          hue: 140,
+          count: 19,
+          img: "images/agent-3.jpg",
+        },
+        {
+          name: "Adaeze Obi",
+          city: "Enugu",
+          specialty: "Land & Heritage Homes",
+          initials: "AO",
+          hue: 355,
+          count: 12,
+          img: "images/agent-4.jpg",
+        },
+      ];
+      function renderAgents() {
+        $("#agentsGrid").innerHTML = AGENTS.map(
+          (a, i) => `
+    <div class="agent-card reveal${i ? " d" + Math.min(i, 3) : ""}">
       <div class="agent-av" style="background:var(--green)">
         ${a.img ? `<img src="${a.img}" alt="${esc(a.name)}">` : esc(a.initials)}
       </div>
@@ -771,21 +3090,58 @@ function renderAgents(){
         <div class="agent-spec">${esc(a.specialty)}</div>
         <span class="agent-count">${a.count} listings</span>
       </div>
-    </div>`).join('');
-}
+    </div>`,
+        ).join("");
+      }
 
-/* ── testimonials ── */
-const TESTIMONIALS=[
-  {name:'Chukwudi Okafor',city:'Lagos',quote:'Found my dream flat in Yaba within two days. The booking process was incredibly smooth and the owner was very responsive. This is the future of real estate in Nigeria.',stars:5,initials:'CO',hue:200,img:'images/user-1.jpg'},
-  {name:'Zainab Mohammed',city:'Abuja',quote:'We used Keyhold to list our property in Maitama and had three serious inquiries in the first week. The interface is clean, professional and very easy to navigate.',stars:5,initials:'ZM',hue:240,img:'images/user-2.jpg'},
-  {name:'Ifeanyi Dike',city:'Port Harcourt',quote:'Scheduled an inspection within minutes. No middlemen, no commission, no stress. This is exactly how the Nigerian property market should work.',stars:5,initials:'ID',hue:140,img:'images/user-3.jpg'},
-];
-let tcCur=0;
-function renderTestimonials(){
-  const track=$('#ttrack');
-  track.innerHTML=TESTIMONIALS.map(t=>`
+      /* ── testimonials ── */
+      const TESTIMONIALS = [
+        {
+          name: "Chukwudi Okafor",
+          city: "Lagos",
+          quote:
+            "Found my dream flat in Yaba within two days. The booking process was incredibly smooth and the owner was very responsive. This is the future of real estate in Nigeria.",
+          stars: 5,
+          initials: "CO",
+          hue: 200,
+          img: "images/user-1.jpg",
+        },
+        {
+          name: "Zainab Mohammed",
+          city: "Abuja",
+          quote:
+            "We used Keyhold to list our property in Maitama and had three serious inquiries in the first week. The interface is clean, professional and very easy to navigate.",
+          stars: 5,
+          initials: "ZM",
+          hue: 240,
+          img: "images/user-2.jpg",
+        },
+        {
+          name: "Ifeanyi Dike",
+          city: "Port Harcourt",
+          quote:
+            "Scheduled an inspection within minutes. No middlemen, no commission, no stress. This is exactly how the Nigerian property market should work.",
+          stars: 5,
+          initials: "ID",
+          hue: 140,
+          img: "images/user-3.jpg",
+        },
+      ];
+      let tcCur = 0;
+      function renderTestimonials() {
+        const track = $("#ttrack");
+        track.innerHTML = TESTIMONIALS.map(
+          (t) => `
     <div class="tcard" role="listitem">
-      <div class="tcard-stars" aria-label="${t.stars} out of 5 stars">${Array(t.stars).fill(0).map(()=>'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>').join('')}</div>
+      <div class="tcard-stars" aria-label="${t.stars} out of 5 stars">${Array(
+        t.stars,
+      )
+        .fill(0)
+        .map(
+          () =>
+            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+        )
+        .join("")}</div>
       <q>${esc(t.quote)}</q>
       <div class="tcard-meta">
         <div class="tcard-av" style="background:var(--green)">
@@ -793,34 +3149,80 @@ function renderTestimonials(){
         </div>
         <div><p class="tcard-name">${esc(t.name)}</p><div class="tcard-city">${esc(t.city)}</div></div>
       </div>
-    </div>`).join('');
-  $('#tdots').innerHTML=TESTIMONIALS.map((_,i)=>`<span role="button" tabindex="0" aria-label="Go to testimonial ${i+1}" class="${i===0?'on':''}" data-ti="${i}"></span>`).join('');
-  function goTo(i){
-    tcCur=(i+TESTIMONIALS.length)%TESTIMONIALS.length;
-    track.children[tcCur]?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'});
-    $$('#tdots span').forEach((s,j)=>s.classList.toggle('on',j===tcCur));
-  }
-  $('#tprev').onclick=()=>goTo(tcCur-1);
-  $('#tnext').onclick=()=>goTo(tcCur+1);
-  $$('#tdots span').forEach(s=>{
-    s.addEventListener('click',()=>goTo(+s.dataset.ti));
-    s.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();goTo(+s.dataset.ti)}});
-  });
-  track.addEventListener('scroll',()=>{
-    const idx=Math.round(track.scrollLeft/track.offsetWidth);
-    if(idx!==tcCur){tcCur=idx;$$('#tdots span').forEach((s,j)=>s.classList.toggle('on',j===tcCur))}
-  },{passive:true});
-}
+    </div>`,
+        ).join("");
+        $("#tdots").innerHTML = TESTIMONIALS.map(
+          (_, i) =>
+            `<span role="button" tabindex="0" aria-label="Go to testimonial ${i + 1}" class="${i === 0 ? "on" : ""}" data-ti="${i}"></span>`,
+        ).join("");
+        function goTo(i) {
+          tcCur = (i + TESTIMONIALS.length) % TESTIMONIALS.length;
+          track.children[tcCur]?.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "start",
+          });
+          $$("#tdots span").forEach((s, j) =>
+            s.classList.toggle("on", j === tcCur),
+          );
+        }
+        $("#tprev").onclick = () => goTo(tcCur - 1);
+        $("#tnext").onclick = () => goTo(tcCur + 1);
+        $$("#tdots span").forEach((s) => {
+          s.addEventListener("click", () => goTo(+s.dataset.ti));
+          s.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              goTo(+s.dataset.ti);
+            }
+          });
+        });
+        track.addEventListener(
+          "scroll",
+          () => {
+            const idx = Math.round(track.scrollLeft / track.offsetWidth);
+            if (idx !== tcCur) {
+              tcCur = idx;
+              $$("#tdots span").forEach((s, j) =>
+                s.classList.toggle("on", j === tcCur),
+              );
+            }
+          },
+          { passive: true },
+        );
+      }
 
-/* ── blog ── */
-const POSTS=[
-  {cat:'Market Insights',title:'5 things to check before buying land in Lagos',excerpt:'Land purchases in Lagos require careful due diligence. Here are the five things every buyer must verify before signing anything.',date:'Nov 10, 2026',img:'images/blog-1.jpg'},
-  {cat:'Sellers Guide',title:'How to price your rental property in Abuja for 2027',excerpt:'Abuja\u2019s rental market is shifting. We break down the neighbourhood data to help you set the right asking price.',date:'Oct 28, 2026',img:'images/blog-2.jpg'},
-  {cat:'Buyer Tips',title:'The ultimate checklist for first-time renters in Nigeria',excerpt:'Moving into your first rental? From checking the meter to signing the right agreement \u2014 everything you need to know.',date:'Oct 15, 2026',img:'images/blog-3.jpg'},
-];
-function renderBlog(){
-  $('#blogGrid').innerHTML=POSTS.map((p,i)=>`
-    <article class="blog-card reveal${i?' d'+i:''}">
+      /* ── blog ── */
+      const POSTS = [
+        {
+          cat: "Market Insights",
+          title: "5 things to check before buying land in Lagos",
+          excerpt:
+            "Land purchases in Lagos require careful due diligence. Here are the five things every buyer must verify before signing anything.",
+          date: "Nov 10, 2026",
+          img: "images/blog-1.jpg",
+        },
+        {
+          cat: "Sellers Guide",
+          title: "How to price your rental property in Abuja for 2027",
+          excerpt:
+            "Abuja\u2019s rental market is shifting. We break down the neighbourhood data to help you set the right asking price.",
+          date: "Oct 28, 2026",
+          img: "images/blog-2.jpg",
+        },
+        {
+          cat: "Buyer Tips",
+          title: "The ultimate checklist for first-time renters in Nigeria",
+          excerpt:
+            "Moving into your first rental? From checking the meter to signing the right agreement \u2014 everything you need to know.",
+          date: "Oct 15, 2026",
+          img: "images/blog-3.jpg",
+        },
+      ];
+      function renderBlog() {
+        $("#blogGrid").innerHTML = POSTS.map(
+          (p, i) => `
+    <article class="blog-card reveal${i ? " d" + i : ""}">
       <div class="blog-cover">
         <img src="${p.img}" alt="${esc(p.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
       </div>
@@ -831,42 +3233,76 @@ function renderBlog(){
         <span class="blog-date">${esc(p.date)}</span>
         <a href="#blog" class="blog-link">Read more &#8594;</a>
       </div>
-    </article>`).join('');
-}
+    </article>`,
+        ).join("");
+      }
 
-/* ── dialog helpers ── */
-const dlg=$('#dlg');
-function show(title,html){$('#dt').textContent=title;$('#db').innerHTML=html;if(!dlg.open)dlg.showModal();$('#db').scrollTop=0}
-function toast(m){const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2800)}
+      /* ── dialog helpers ── */
+      const dlg = $("#dlg");
+      function show(title, html) {
+        $("#dt").textContent = title;
+        $("#db").innerHTML = html;
+        if (!dlg.open) dlg.showModal();
+        $("#db").scrollTop = 0;
+      }
+      function toast(m) {
+        const t = document.createElement("div");
+        t.className = "toast";
+        t.setAttribute("role", "status");
+        t.textContent = m;
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 2800);
+      }
 
-/* ── detail dialog ── */
-function detail(id){
-  cur=S.listings.find(l=>l.id===id);if(!cur)return;sel={date:null,time:null};const l=cur;
-  const ag=AGENTS.find(a=>a.name===l.agent);
-  const agPic=ag&&ag.img?`<img src="${ag.img}" alt="${esc(l.agent)}">`:esc(l.agent.trim()[0]||'?');
-  show(l.title,`<div class="dpic">${art(l)}</div>
-  <div class="row" style="justify-content:space-between;margin-top:16px;flex-wrap:wrap"><div class="price">${naira(l.price)}</div><div class="meta">${esc(l.area)} &middot; ${l.beds?l.beds+' bed &middot; '+l.baths+' bath &middot; ':''}${l.sqm} sqm</div></div>
+      /* ── detail dialog ── */
+      function detail(id) {
+        cur = S.listings.find((l) => l.id === id);
+        if (!cur) return;
+        sel = { date: null, time: null };
+        const l = cur;
+        const ag = AGENTS.find((a) => a.name === l.agent);
+        const agPic =
+          ag && ag.img
+            ? `<img src="${ag.img}" alt="${esc(l.agent)}">`
+            : esc(l.agent.trim()[0] || "?");
+        show(
+          l.title,
+          `<div class="dpic">${art(l)}</div>
+  <div class="row" style="justify-content:space-between;margin-top:16px;flex-wrap:wrap"><div class="price">${naira(l.price)}</div><div class="meta">${esc(l.area)} &middot; ${l.beds ? l.beds + " bed &middot; " + l.baths + " bath &middot; " : ""}${l.sqm} sqm</div></div>
   <p>${esc(l.desc)}</p>
-  <div class="agent-inline"><div class="avatar">${agPic}</div><div><b>${esc(l.agent)}</b><div class="small">Shows on ${l.days.map(d=>DAYN[d]).join(', ')} &middot; ${esc(l.phone)}</div></div></div>
+  <div class="agent-inline"><div class="avatar">${agPic}</div><div><b>${esc(l.agent)}</b><div class="small">Shows on ${l.days.map((d) => DAYN[d]).join(", ")} &middot; ${esc(l.phone)}</div></div></div>
   <h3 style="font:700 18px var(--wide);font-stretch:120%;margin:20px 0 0">Book an inspection</h3>
   <form id="bf" novalidate>
-    <label>Choose a date</label><div class="slots" id="dates">${openDays(l).map(d=>`<button type="button" class="slot" data-date="${d}">${fmtD(d)}</button>`).join('')}</div>
+    <label>Choose a date</label><div class="slots" id="dates">${openDays(l)
+      .map(
+        (d) =>
+          `<button type="button" class="slot" data-date="${d}">${fmtD(d)}</button>`,
+      )
+      .join("")}</div>
     <label>Choose a time</label><div class="slots" id="times"><span class="meta">Pick a date first.</span></div>
     <div class="two"><div><label for="bn">Your name</label><input id="bn" type="text" autocomplete="name"></div><div><label for="bp">Phone number</label><input id="bp" type="tel" autocomplete="tel"></div></div>
     <div class="err" id="be" role="alert"></div>
     <button class="btn" style="margin-top:12px" type="submit">Request visit</button>
-  </form>`);
-}
-function paintTimes(){
-  if(!sel.date)return;
-  $('#times').innerHTML=SLOTS.map(t=>{const tk=taken(cur.id,sel.date,t);return`<button type="button" class="slot${sel.time===t?' on':''}" data-time="${t}"${tk?' disabled aria-label="'+t+' taken"':''}>${t}</button>`}).join('');
-  $$('#dates .slot').forEach(b=>b.classList.toggle('on',b.dataset.date===sel.date));
-}
+  </form>`,
+        );
+      }
+      function paintTimes() {
+        if (!sel.date) return;
+        $("#times").innerHTML = SLOTS.map((t) => {
+          const tk = taken(cur.id, sel.date, t);
+          return `<button type="button" class="slot${sel.time === t ? " on" : ""}" data-time="${t}"${tk ? ' disabled aria-label="' + t + ' taken"' : ""}>${t}</button>`;
+        }).join("");
+        $$("#dates .slot").forEach((b) =>
+          b.classList.toggle("on", b.dataset.date === sel.date),
+        );
+      }
 
-/* ── post form ── */
-function postForm(){
-  upImg=null;
-  show('List a property',`<form id="pf" novalidate>
+      /* ── post form ── */
+      function postForm() {
+        upImg = null;
+        show(
+          "List a property",
+          `<form id="pf" novalidate>
     <label for="pt">Title</label><input id="pt" type="text" placeholder="e.g. Three-bedroom flat with balcony">
     <div class="two"><div><label for="pa">Area</label><input id="pa" type="text" placeholder="Lekki, Lagos"></div><div><label for="pty">Type</label><select id="pty"><option>Apartment</option><option>House</option><option>Duplex</option><option>Land</option></select></div></div>
     <div class="two"><div><label for="pr">Price (&#8358;)</label><input id="pr" type="number" min="0"></div><div><label for="ps">Size (sqm)</label><input id="ps" type="number" min="0"></div></div>
@@ -875,121 +3311,272 @@ function postForm(){
     <label>Photo</label><label class="drop" for="pf-img" style="font-weight:400">Choose a photo to upload<input id="pf-img" type="file" accept="image/*" style="display:none"><div id="prev"></div></label>
     <div class="two"><div><label for="pn">Your name</label><input id="pn" type="text"></div><div><label for="pph">Phone number</label><input id="pph" type="tel"></div></div>
     <label>Days you can show the property</label>
-    <div class="days">${DAYN.map((d,i)=>`<label><input type="checkbox" value="${i}"${i>0&&i<6?' checked':''}><span>${d}</span></label>`).join('')}</div>
+    <div class="days">${DAYN.map((d, i) => `<label><input type="checkbox" value="${i}"${i > 0 && i < 6 ? " checked" : ""}><span>${d}</span></label>`).join("")}</div>
     <div class="err" id="pe" role="alert"></div>
     <button class="btn" style="margin-top:12px" type="submit">Publish listing</button>
-  </form>`);
-}
-function resize(file,cb){const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,900/im.width),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.8))};im.src=r.result};r.readAsDataURL(file)}
+  </form>`,
+        );
+      }
+      function resize(file, cb) {
+        const r = new FileReader();
+        r.onload = () => {
+          const im = new Image();
+          im.onload = () => {
+            const k = Math.min(1, 900 / im.width),
+              c = document.createElement("canvas");
+            c.width = im.width * k;
+            c.height = im.height * k;
+            c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+            cb(c.toDataURL("image/jpeg", 0.8));
+          };
+          im.src = r.result;
+        };
+        r.readAsDataURL(file);
+      }
 
-/* ── appointments ── */
-function appts(){
-  const mine=S.listings.filter(l=>l.mine).map(l=>l.id);
-  const mk=(b,own)=>{const l=S.listings.find(x=>x.id===b.listingId);if(!l)return'';return`<div class="appt"><div><h4>${esc(l.title)}</h4><div class="meta">${fmtD(b.date)} at ${b.time} &middot; ${esc(l.area)}</div><div class="meta">${own?esc(b.name)+' &middot; '+esc(b.phone):'Meet '+esc(l.agent)+' &middot; '+esc(l.phone)}</div></div><div class="row"><span class="st ${b.status}">${b.status[0].toUpperCase()+b.status.slice(1)}</span>${own&&b.status==='pending'?`<button data-conf="${b.id}">Confirm</button><button data-dec="${b.id}">Decline</button>`:''}${!own&&b.status!=='declined'?`<button data-cancel="${b.id}">Cancel</button>`:''}</div></div>`};
-  const my=S.bookings.filter(b=>b.mine),req=S.bookings.filter(b=>mine.includes(b.listingId));
-  show('My visits',`<h3 style="font:700 17px var(--wide);font-stretch:120%">Visits you booked</h3>${my.map(b=>mk(b,false)).join('')||'<p class="meta">No visits yet. Open a listing and request a time.</p>'}<h3 style="font:700 17px var(--wide);font-stretch:120%;margin-top:24px">Requests on your listings</h3>${req.map(b=>mk(b,true)).join('')||'<p class="meta">Visitors\u2019 requests will appear here once you list a property.</p>'}`);
-}
+      /* ── appointments ── */
+      function appts() {
+        const mine = S.listings.filter((l) => l.mine).map((l) => l.id);
+        const mk = (b, own) => {
+          const l = S.listings.find((x) => x.id === b.listingId);
+          if (!l) return "";
+          return `<div class="appt"><div><h4>${esc(l.title)}</h4><div class="meta">${fmtD(b.date)} at ${b.time} &middot; ${esc(l.area)}</div><div class="meta">${own ? esc(b.name) + " &middot; " + esc(b.phone) : "Meet " + esc(l.agent) + " &middot; " + esc(l.phone)}</div></div><div class="row"><span class="st ${b.status}">${b.status[0].toUpperCase() + b.status.slice(1)}</span>${own && b.status === "pending" ? `<button data-conf="${b.id}">Confirm</button><button data-dec="${b.id}">Decline</button>` : ""}${!own && b.status !== "declined" ? `<button data-cancel="${b.id}">Cancel</button>` : ""}</div></div>`;
+        };
+        const my = S.bookings.filter((b) => b.mine),
+          req = S.bookings.filter((b) => mine.includes(b.listingId));
+        show(
+          "My visits",
+          `<h3 style="font:700 17px var(--wide);font-stretch:120%">Visits you booked</h3>${my.map((b) => mk(b, false)).join("") || '<p class="meta">No visits yet. Open a listing and request a time.</p>'}<h3 style="font:700 17px var(--wide);font-stretch:120%;margin-top:24px">Requests on your listings</h3>${req.map((b) => mk(b, true)).join("") || '<p class="meta">Visitors\u2019 requests will appear here once you list a property.</p>'}`,
+        );
+      }
 
-/* ── scroll reveal observer ── */
-const revealObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');revealObs.unobserve(e.target)}});
-},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-function observeAll(){$$('.reveal').forEach(el=>revealObs.observe(el))}
+      /* ── scroll reveal observer ── */
+      const revealObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("vis");
+              revealObs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+      );
+      function observeAll() {
+        $$(".reveal").forEach((el) => revealObs.observe(el));
+      }
 
-/* ── mobile nav ── */
-function closeMob(){$('#burger').classList.remove('open');$('#burger').setAttribute('aria-expanded','false');$('#mobNav').classList.remove('open');$('#mobNav').setAttribute('aria-hidden','true')}
-$('#burger').addEventListener('click',()=>{
-  const open=$('#burger').classList.toggle('open');
-  $('#burger').setAttribute('aria-expanded',String(open));
-  $('#mobNav').classList.toggle('open',open);
-  $('#mobNav').setAttribute('aria-hidden',String(!open));
-});
-$$('[data-mob-close]').forEach(el=>el.addEventListener('click',closeMob));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMob()});
+      /* ── mobile nav ── */
+      function closeMob() {
+        $("#burger").classList.remove("open");
+        $("#burger").setAttribute("aria-expanded", "false");
+        $("#mobNav").classList.remove("open");
+        $("#mobNav").setAttribute("aria-hidden", "true");
+      }
+      $("#burger").addEventListener("click", () => {
+        const open = $("#burger").classList.toggle("open");
+        $("#burger").setAttribute("aria-expanded", String(open));
+        $("#mobNav").classList.toggle("open", open);
+        $("#mobNav").setAttribute("aria-hidden", String(!open));
+      });
+      $$("[data-mob-close]").forEach((el) =>
+        el.addEventListener("click", closeMob),
+      );
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMob();
+      });
 
-/* ── sticky nav on scroll ── */
-const topNav=$('#topNav');
-window.addEventListener('scroll',()=>topNav.classList.toggle('scrolled',scrollY>60),{passive:true});
+      /* ── sticky nav on scroll ── */
+      const topNav = $("#topNav");
+      window.addEventListener(
+        "scroll",
+        () => topNav.classList.toggle("scrolled", scrollY > 60),
+        { passive: true },
+      );
 
-/* ── city cycle ── */
-(function(){
-  const el=$('#city-cycle');if(!el)return;
-  let idx=0;
-  el.style.transition='opacity .28s,transform .28s';
-  setInterval(()=>{
-    idx=(idx+1)%CITIES.length;
-    el.style.opacity='0';el.style.transform='translateY(-8px)';
-    setTimeout(()=>{el.textContent=CITIES[idx];el.style.opacity='1';el.style.transform='translateY(0)'},300);
-  },2600);
-})();
+      /* ── city cycle ── */
+      (function () {
+        const el = $("#city-cycle");
+        if (!el) return;
+        let idx = 0;
+        el.style.transition = "opacity .28s,transform .28s";
+        setInterval(() => {
+          idx = (idx + 1) % CITIES.length;
+          el.style.opacity = "0";
+          el.style.transform = "translateY(-8px)";
+          setTimeout(() => {
+            el.textContent = CITIES[idx];
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+          }, 300);
+        }, 2600);
+      })();
 
-/* ── hero search ── */
-$('#hf').addEventListener('submit',e=>{
-  e.preventDefault();
-  query=$('#hq').value.trim();
-  filterType=$('#htype').value||'All';
-  render();$('#q').value=query;
-  $('#listings').scrollIntoView({behavior:'smooth'});
-});
+      /* ── hero search ── */
+      $("#hf").addEventListener("submit", (e) => {
+        e.preventDefault();
+        query = $("#hq").value.trim();
+        filterType = $("#htype").value || "All";
+        render();
+        $("#q").value = query;
+        $("#listings").scrollIntoView({ behavior: "smooth" });
+      });
 
-/* ── main search input ── */
-$('#q').addEventListener('input',e=>{query=e.target.value;render()});
+      /* ── main search input ── */
+      $("#q").addEventListener("input", (e) => {
+        query = e.target.value;
+        render();
+      });
 
-/* ── image upload ── */
-document.addEventListener('change',e=>{if(e.target.id==='pf-img'&&e.target.files[0])resize(e.target.files[0],u=>{upImg=u;$('#prev').innerHTML=`<img src="${u}" alt="Selected photo preview">`})});
+      /* ── image upload ── */
+      document.addEventListener("change", (e) => {
+        if (e.target.id === "pf-img" && e.target.files[0])
+          resize(e.target.files[0], (u) => {
+            upImg = u;
+            $("#prev").innerHTML =
+              `<img src="${u}" alt="Selected photo preview">`;
+          });
+      });
 
-/* ── form submissions ── */
-document.addEventListener('submit',e=>{
-  e.preventDefault();
-  if(e.target.id==='bf'){
-    const n=$('#bn').value.trim(),p=$('#bp').value.trim(),er=$('#be');
-    if(!sel.date||!sel.time){er.textContent='Choose a date and an open time.';return}
-    if(!n||p.replace(/\D/g,'').length<7){er.textContent='Enter your name and a valid phone number.';return}
-    if(taken(cur.id,sel.date,sel.time)){er.textContent='That slot was just taken. Pick another.';paintTimes();return}
-    S.bookings.push({id:Date.now(),listingId:cur.id,name:n,phone:p,date:sel.date,time:sel.time,status:'pending',mine:true});
-    save();render();
-    e.target.innerHTML=`<div class="ok"><b>Visit requested.</b><br>${fmtD(sel.date)} at ${sel.time}, ${esc(cur.area)}. ${esc(cur.agent)} will confirm and you can meet them at the property.</div><button type="button" class="btn dark" style="margin-top:14px" data-act="appts">See my visits</button>`;
-  }
-  if(e.target.id==='pf'){
-    const g=id=>$(id).value.trim(),er=$('#pe');
-    const days=$$('.days input:checked').map(i=>+i.value);
-    if(!g('#pt')||!g('#pa')||!(+$('#pr').value)||!g('#pn')||!g('#pph')){er.textContent='Title, area, price, your name and phone are required.';return}
-    if(!days.length){er.textContent='Choose at least one day you can show the property.';return}
-    const l={id:Date.now(),title:g('#pt'),type:$('#pty').value,area:g('#pa'),price:+$('#pr').value,beds:+$('#pb').value||0,baths:+$('#pba').value||0,sqm:+$('#ps').value||0,hue:[200,170,30,260,100,215][S.listings.length%6],desc:g('#pd')||'No description added yet.',agent:g('#pn'),phone:g('#pph'),days,mine:true,img:upImg};
-    S.listings.unshift(l);save();render();dlg.close();toast('Listing published \u2713');location.hash='listings';
-  }
-  if(e.target.id==='nlForm'){
-    e.target.innerHTML='<p style="color:var(--cyan);font:600 16px var(--wide);letter-spacing:.04em;margin:0">\u2713 You\'re on the list! We\'ll be in touch.</p>';
-    toast('Subscribed successfully \u2713');
-  }
-});
+      /* ── form submissions ── */
+      document.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (e.target.id === "bf") {
+          const n = $("#bn").value.trim(),
+            p = $("#bp").value.trim(),
+            er = $("#be");
+          if (!sel.date || !sel.time) {
+            er.textContent = "Choose a date and an open time.";
+            return;
+          }
+          if (!n || p.replace(/\D/g, "").length < 7) {
+            er.textContent = "Enter your name and a valid phone number.";
+            return;
+          }
+          if (taken(cur.id, sel.date, sel.time)) {
+            er.textContent = "That slot was just taken. Pick another.";
+            paintTimes();
+            return;
+          }
+          S.bookings.push({
+            id: Date.now(),
+            listingId: cur.id,
+            name: n,
+            phone: p,
+            date: sel.date,
+            time: sel.time,
+            status: "pending",
+            mine: true,
+          });
+          save();
+          render();
+          e.target.innerHTML = `<div class="ok"><b>Visit requested.</b><br>${fmtD(sel.date)} at ${sel.time}, ${esc(cur.area)}. ${esc(cur.agent)} will confirm and you can meet them at the property.</div><button type="button" class="btn dark" style="margin-top:14px" data-act="appts">See my visits</button>`;
+        }
+        if (e.target.id === "pf") {
+          const g = (id) => $(id).value.trim(),
+            er = $("#pe");
+          const days = $$(".days input:checked").map((i) => +i.value);
+          if (
+            !g("#pt") ||
+            !g("#pa") ||
+            !+$("#pr").value ||
+            !g("#pn") ||
+            !g("#pph")
+          ) {
+            er.textContent =
+              "Title, area, price, your name and phone are required.";
+            return;
+          }
+          if (!days.length) {
+            er.textContent =
+              "Choose at least one day you can show the property.";
+            return;
+          }
+          const l = {
+            id: Date.now(),
+            title: g("#pt"),
+            type: $("#pty").value,
+            area: g("#pa"),
+            price: +$("#pr").value,
+            beds: +$("#pb").value || 0,
+            baths: +$("#pba").value || 0,
+            sqm: +$("#ps").value || 0,
+            hue: [200, 170, 30, 260, 100, 215][S.listings.length % 6],
+            desc: g("#pd") || "No description added yet.",
+            agent: g("#pn"),
+            phone: g("#pph"),
+            days,
+            mine: true,
+            img: upImg,
+          };
+          S.listings.unshift(l);
+          save();
+          render();
+          dlg.close();
+          toast("Listing published \u2713");
+          location.hash = "listings";
+        }
+        if (e.target.id === "nlForm") {
+          e.target.innerHTML =
+            "<p style=\"color:var(--cyan);font:600 16px var(--wide);letter-spacing:.04em;margin:0\">\u2713 You're on the list! We'll be in touch.</p>";
+          toast("Subscribed successfully \u2713");
+        }
+      });
 
-/* ── click delegation ── */
-document.addEventListener('click',e=>{
-  const t=e.target.closest('button,a');if(!t)return;
-  const d=t.dataset;
-  if(d.act==='post'){postForm();closeMob()}
-  else if(d.act==='appts'){appts();closeMob()}
-  else if('close' in d)dlg.close();
-  else if(d.type){filterType=d.type;render()}
-  else if(d.view)detail(+d.view);
-  else if(d.date){sel.date=d.date;sel.time=null;paintTimes()}
-  else if(d.time){sel.time=d.time;paintTimes()}
-  else if(d.conf||d.dec){const b=S.bookings.find(x=>x.id===+(d.conf||d.dec));b.status=d.conf?'confirmed':'declined';save();appts();render();toast(d.conf?'Visit confirmed \u2713':'Visit declined')}
-  else if(d.cancel){S.bookings=S.bookings.filter(x=>x.id!==+d.cancel);save();appts();render();toast('Visit cancelled')}
-  else if(d.footType){filterType=d.footType;render()}
-});
+      /* ── click delegation ── */
+      document.addEventListener("click", (e) => {
+        const t = e.target.closest("button,a");
+        if (!t) return;
+        const d = t.dataset;
+        if (d.act === "post") {
+          postForm();
+          closeMob();
+        } else if (d.act === "appts") {
+          appts();
+          closeMob();
+        } else if ("close" in d) dlg.close();
+        else if (d.type) {
+          filterType = d.type;
+          render();
+        } else if (d.view) detail(+d.view);
+        else if (d.date) {
+          sel.date = d.date;
+          sel.time = null;
+          paintTimes();
+        } else if (d.time) {
+          sel.time = d.time;
+          paintTimes();
+        } else if (d.conf || d.dec) {
+          const b = S.bookings.find((x) => x.id === +(d.conf || d.dec));
+          b.status = d.conf ? "confirmed" : "declined";
+          save();
+          appts();
+          render();
+          toast(d.conf ? "Visit confirmed \u2713" : "Visit declined");
+        } else if (d.cancel) {
+          S.bookings = S.bookings.filter((x) => x.id !== +d.cancel);
+          save();
+          appts();
+          render();
+          toast("Visit cancelled");
+        } else if (d.footType) {
+          filterType = d.footType;
+          render();
+        }
+      });
 
-/* ── dialog backdrop click ── */
-dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+      /* ── dialog backdrop click ── */
+      dlg.addEventListener("click", (e) => {
+        if (e.target === dlg) dlg.close();
+      });
 
-/* ── INIT ── */
-load();
-render();
-renderAgents();
-renderTestimonials();
-renderBlog();
-observeAll();
-</script>
-</body>
+      /* ── INIT ── */
+      load();
+      render();
+      renderAgents();
+      renderTestimonials();
+      renderBlog();
+      observeAll();
+    </script>
+  </body>
 </html>
